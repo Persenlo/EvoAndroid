@@ -1,6 +1,4 @@
-plugins {
-    id 'com.android.application'
-}
+apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
@@ -55,6 +53,18 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
     // Annotation processor
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+
+    //Room
+    def room_version = "2.4.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    //抖音SDK
+    implementation 'com.bytedance.ies.ugc.aweme:opensdk-china-external:0.1.8.0'
+    implementation 'com.bytedance.ies.ugc.aweme:opensdk-common:0.1.8.0'
 
 
     implementation 'androidx.appcompat:appcompat:1.3.0'
