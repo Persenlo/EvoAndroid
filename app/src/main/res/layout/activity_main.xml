@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="loginViewModel"
+            type="com.qxy.evoandroid.userLogin.LoginViewModel" />
 
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,7 +17,7 @@
         tools:context=".MainActivity">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/bt_login_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="110dp"
