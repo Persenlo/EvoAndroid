@@ -1,4 +1,4 @@
-package com.qxy.evoandroid;
+package com.qxy.evoandroid.userLogin;
 
 
 import android.os.Bundle;
@@ -10,7 +10,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bytedance.sdk.open.aweme.authorize.model.Authorization;
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory;
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi;
+import com.qxy.evoandroid.BaseActivity;
+import com.qxy.evoandroid.R;
 import com.qxy.evoandroid.databinding.ActivityMainBinding;
+import com.qxy.evoandroid.douyinapi.TokenUtil;
 import com.qxy.evoandroid.userLogin.LoginViewModel;
 import com.qxy.evoandroid.utils.SingleClickListener;
 
@@ -19,11 +22,18 @@ public class MainActivity extends BaseActivity {
     LoginViewModel loginViewModel;
     ActivityMainBinding binding;
 
+
     //设置所需权限
     DouYinOpenApi douYinOpenApi;
     String scopes = "trial.whitelist," +
-            "video.data," +
-            "video.list";
+            "video.data," +//视频权限
+            "video.list," +
+            "user_info," +//用户信息权限
+            "following.list," +
+            "fans.list," +
+            "fans.check," +
+            "renew_refresh_token," +
+            "discovery.ent";//抖音电影榜
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +54,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initListener() {
-
         binding.btLoginLogin.setOnClickListener(new SingleClickListener() {
             @Override
             protected void onSignalClick(View v) {

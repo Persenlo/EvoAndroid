@@ -11,4 +11,8 @@ public class Constant {
     static final public String GRANT_TYPE = "authorization_code";
 
     static final public String DOUYIN_OPENAPI = "https://open.douyin.com/";
+
+    //消息
+    static final public int TOKEN_GET_COMPLETE = 10001;
+    static final public int TOKEN_GET_FAIL = 10002;
 }

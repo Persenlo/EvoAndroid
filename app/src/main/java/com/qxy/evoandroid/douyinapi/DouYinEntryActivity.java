@@ -3,25 +3,32 @@ package com.qxy.evoandroid.douyinapi;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.bytedance.sdk.open.aweme.CommonConstants;
 import com.bytedance.sdk.open.aweme.authorize.model.Authorization;
 import com.bytedance.sdk.open.aweme.common.handler.IApiEventHandler;
 import com.bytedance.sdk.open.aweme.common.model.BaseReq;
 import com.bytedance.sdk.open.aweme.common.model.BaseResp;
-import com.bytedance.sdk.open.aweme.share.Share;
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory;
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi;
-import com.qxy.evoandroid.APIService;
+
 import com.qxy.evoandroid.BaseActivity;
 import com.qxy.evoandroid.Constant;
-import com.qxy.evoandroid.MainActivity;
 import com.qxy.evoandroid.R;
 import com.qxy.evoandroid.cookieStore.CookieJarImpl;
 import com.qxy.evoandroid.cookieStore.PersistentCookieStore;
+import com.qxy.evoandroid.request.ApiService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -42,9 +49,11 @@ public class DouYinEntryActivity extends BaseActivity implements IApiEventHandle
     DouYinOpenApi douYinOpenApi;
     private String authCode;
     private String accessToken;
+    private String refresh_token;
+    private String open_id;
 
     private Retrofit retrofit;
-    private APIService apiService;
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +77,6 @@ public class DouYinEntryActivity extends BaseActivity implements IApiEventHandle
         if (resp.getType() == CommonConstants.ModeType.SEND_AUTH_RESPONSE) {
             Authorization.Response response = (Authorization.Response) resp;
             if (resp.isSuccess()) {
-                Toast.makeText(this, "授权成功",Toast.LENGTH_SHORT).show();
                 authCode = response.authCode;
                 getToken();
             }
@@ -88,7 +96,7 @@ public class DouYinEntryActivity extends BaseActivity implements IApiEventHandle
                 baseUrl(Constant.DOUYIN_OPENAPI).
                 client(client).
                 build();
-        apiService = retrofit.create(APIService.class);
+        apiService = retrofit.create(ApiService.class);
     }
 
 
@@ -100,7 +108,9 @@ public class DouYinEntryActivity extends BaseActivity implements IApiEventHandle
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 ResponseBody body = response.body();
                 try {
-                    Log.e("test","msg:"+body.string());
+                    if (body != null) {
+                        getData(body.string());
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -112,4 +122,61 @@ public class DouYinEntryActivity extends BaseActivity implements IApiEventHandle
             }
         });
     }
+
+    private void getData(String body) {
+        try {
+            JSONObject jsonObject = new JSONObject(body);
+            String data = jsonObject.getString("data");
+            JSONObject dataObj = new JSONObject(data);
+            String errCode = dataObj.getString("error_code");
+            if (errCode.equals("0")){
+                //获取access_token成功，将token通过SP保存
+                accessToken = dataObj.getString("access_token");
+                refresh_token = dataObj.getString("refresh_token");
+                open_id = dataObj.getString("open_id");
+                SharedPreferences sp = this.getSharedPreferences("userToken.xml",0);
+                SharedPreferences.Editor spEdit = sp.edit();
+                spEdit.putString("access_token",accessToken);
+                spEdit.putString("refresh_token",refresh_token);
+                spEdit.putString("open_id",open_id);
+                spEdit.commit();
+                //发送消息
+                Message msg = new Message();
+                msg.what = Constant.TOKEN_GET_COMPLETE;
+                handler.sendMessage(msg);
+            }else {
+                //请求失败，清除过期Token
+                SharedPreferences sp = this.getSharedPreferences("userToken.xml",0);
+                SharedPreferences.Editor spEdit = sp.edit();
+                spEdit.clear();
+                //发送消息
+                Message msg = new Message();
+                msg.what = Constant.TOKEN_GET_FAIL;
+                handler.sendMessage(msg);
+            }
+        } catch (JSONException e) {
+            Log.e("DouYinEntityActivity","err:"+e);;
+        }
+    }
+
+
+    //消息处理
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case Constant.TOKEN_GET_COMPLETE:
+                    //请求成功，返回
+                    Toast.makeText(DouYinEntryActivity.this,R.string.login_token_success,Toast.LENGTH_SHORT).show();
+                    finish();
+                    break;
+                case Constant.TOKEN_GET_FAIL:
+                    //请求失败，后返回
+                    Toast.makeText(DouYinEntryActivity.this,R.string.login_token_fail,Toast.LENGTH_SHORT).show();
+                    finish();
+                    break;
+            }
+        }
+    };
 }
