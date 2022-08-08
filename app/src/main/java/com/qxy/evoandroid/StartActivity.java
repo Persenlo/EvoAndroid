@@ -55,11 +55,13 @@ public class StartActivity extends BaseActivity {
                     //已登录
                     Intent intent = new Intent(StartActivity.this, HallActivity.class);
                     startActivity(intent);
+                    finish();
                 }else {
                     //未登录
                     Toast.makeText(StartActivity.this,R.string.login_login_first,Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(StartActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
 
