@@ -79,6 +79,9 @@ public class DouYinEntryActivity extends BaseActivity implements IApiEventHandle
             if (resp.isSuccess()) {
                 authCode = response.authCode;
                 getToken();
+            }else {
+                Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
     }
