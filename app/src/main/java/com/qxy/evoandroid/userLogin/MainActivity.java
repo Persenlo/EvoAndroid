@@ -54,10 +54,18 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initListener() {
+        //登录按钮
         binding.btLoginLogin.setOnClickListener(new SingleClickListener() {
             @Override
             protected void onSignalClick(View v) {
                 login();
+            }
+        });
+        //排行榜按钮
+        binding.btLoginRank.setOnClickListener(new SingleClickListener() {
+            @Override
+            protected void onSignalClick(View v) {
+
             }
         });
     }
