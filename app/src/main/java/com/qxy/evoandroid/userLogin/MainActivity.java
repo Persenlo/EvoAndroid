@@ -71,13 +71,13 @@ public class MainActivity extends BaseActivity {
     }
 
     //调出授权页面进行授权
-    public boolean login(){
+    public void login(){
         douYinOpenApi = DouYinOpenApiFactory.create(this);
         Authorization.Request request = new Authorization.Request();
         request.scope = scopes;                                // 用户授权时必选权限
         request.optionalScope0 = "";                           // 用户授权时可选权限（默认选择）
         request.state = "ww";                                  // 用于保持请求和回调的状态，授权请求后原样带回给第三方。
-
-        return douYinOpenApi.authorize(request);               // 优先使用抖音app进行授权，如果抖音app因版本或者其他原因无法授权，则使用wap页授权
+        douYinOpenApi.authorize(request);                       // 优先使用抖音app进行授权，如果抖音app因版本或者其他原因无法授权，则使用wap页授权
+        finish();
     }
 }

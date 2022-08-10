@@ -43,6 +43,7 @@
             android:taskAffinity="com.qxy.evoandroid" />
         <activity
             android:name=".userLogin.MainActivity"
+            android:launchMode="singleTask"
             android:exported="false">
         </activity>
     </application>
