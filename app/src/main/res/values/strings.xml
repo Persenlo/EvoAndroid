@@ -16,5 +16,10 @@
     <string name="user_mine">我的资料</string>
 
     <!--排行榜-->
-    <string name="rank_rank_name">排行榜</string>
+    <string name="rank_rank_name">电影排行榜</string>
+    <string name="rank_teleplay_name">电视剧排行榜</string>
+    <string name="rank_variety_name">综艺排行榜</string>
+    <string name="rank_tab_item_local">院线电影</string>
+    <string name="rank_tab_item_online">网络电影</string>
+
 </resources>
