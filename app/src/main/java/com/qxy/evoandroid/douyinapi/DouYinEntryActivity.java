@@ -26,7 +26,9 @@ import com.qxy.evoandroid.Constant;
 import com.qxy.evoandroid.R;
 import com.qxy.evoandroid.cookieStore.CookieJarImpl;
 import com.qxy.evoandroid.cookieStore.PersistentCookieStore;
+import com.qxy.evoandroid.hall.HallActivity;
 import com.qxy.evoandroid.request.ApiService;
+import com.qxy.evoandroid.userLogin.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -140,6 +142,7 @@ public class DouYinEntryActivity extends BaseActivity implements IApiEventHandle
                 open_id = dataObj.getString("open_id");
                 SharedPreferences sp = this.getSharedPreferences("userToken.xml",0);
                 SharedPreferences.Editor spEdit = sp.edit();
+                spEdit.putString("author_code",authCode);
                 spEdit.putString("access_token",accessToken);
                 spEdit.putString("refresh_token",refresh_token);
                 spEdit.putString("open_id",open_id);
@@ -173,11 +176,15 @@ public class DouYinEntryActivity extends BaseActivity implements IApiEventHandle
                 case Constant.TOKEN_GET_COMPLETE:
                     //请求成功，返回
                     Toast.makeText(DouYinEntryActivity.this,R.string.login_token_success,Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(DouYinEntryActivity.this, HallActivity.class);
+                    startActivity(intent);
                     finish();
                     break;
                 case Constant.TOKEN_GET_FAIL:
                     //请求失败，后返回
                     Toast.makeText(DouYinEntryActivity.this,R.string.login_token_fail,Toast.LENGTH_SHORT).show();
+                    Intent intent1 = new Intent(DouYinEntryActivity.this, MainActivity.class);
+                    startActivity(intent1);
                     finish();
                     break;
             }
