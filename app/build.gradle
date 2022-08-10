@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         debug {
-            storeFile file('C:\\Users\\Persenlo\\Desktop\\青训营文件\\签名\\signkey.jks')
+            storeFile file('D:\\Android\\qxy\\签名\\signkey.jks')
             storePassword 'evoandroid'
             keyAlias '123456'
             keyPassword 'evoandroid'

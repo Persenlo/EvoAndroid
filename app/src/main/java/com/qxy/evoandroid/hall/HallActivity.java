@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.qxy.evoandroid.BaseActivity;
 import com.qxy.evoandroid.R;
 import com.qxy.evoandroid.databinding.ActivityHallBinding;
 import com.qxy.evoandroid.douyinapi.TokenUtil;
+import com.qxy.evoandroid.list.ListActivity;
 import com.qxy.evoandroid.userLogin.LoginViewModel;
 
 /**
@@ -31,6 +34,35 @@ public class HallActivity extends BaseActivity {
         setContentView(R.layout.activity_hall);
 
         initView();
+
+        initRank();
+    }
+
+    //跳转排行榜
+    private void initRank() {
+        Intent intent=new Intent(HallActivity.this, ListActivity.class);
+        binding.cvHallRank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent.putExtra("SELECT_TYPE",1);
+                startActivity(intent);
+            }
+        });
+        binding.cvHallTeleplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent.putExtra("SELECT_TYPE",2);
+                startActivity(intent);
+            }
+        });
+        binding.cvHallVariety.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent.putExtra("SELECT_TYPE",3);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
