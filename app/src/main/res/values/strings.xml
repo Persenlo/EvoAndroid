@@ -21,5 +21,9 @@
     <string name="rank_variety_name">综艺排行榜</string>
     <string name="rank_tab_item_local">院线电影</string>
     <string name="rank_tab_item_online">网络电影</string>
+    <string name="movie_poster">MoviePoster</string>
+    <string name="movie_name">MovieName</string>
+    <string name="movie_tags">MovieTags</string>
+    <string name="movie_actors">MovieActors</string>
 
 </resources>

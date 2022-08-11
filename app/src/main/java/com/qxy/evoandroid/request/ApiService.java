@@ -56,6 +56,6 @@ public interface ApiService {
      * @return
      */
     @GET("/discovery/ent/rank/item/")
-    Call<VideoRank> getVideoRank(@Header("access_token") String clientToken, @Query("type") int type, @Query("version") int version);
+    Call<VideoRank> getVideoRank(@Header("access-token") String clientToken, @Query("type") int type, @Query("version") int version);
 
 }

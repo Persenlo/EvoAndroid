@@ -14,13 +14,11 @@ import com.qxy.evoandroid.R;
 import com.qxy.evoandroid.databinding.ItemListBinding;
 import com.qxy.evoandroid.model.VideoRank.DataDTO.ListDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyHolder> {
-    private List<ListDTO> list=new ArrayList<>();
-    private Context context;
-    private String Tag="ListAdapterTag";
+    private final List<ListDTO> list;
+    private final Context context;
 
     public ListAdapter(List<ListDTO> list, Context context) {
         this.list = list;
@@ -38,16 +36,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyHolder> {
         ListDTO data=list.get(position);
         if(holder.binding!=null){
             if(holder.binding.ivList.getTag()==null){
-                holder.binding.ivList.setTag(Tag);
+                String tag = "ListAdapterTag";
+                holder.binding.ivList.setTag(tag);
                 Glide.with(context).load(data.getPoster()).into(holder.binding.ivList);
             }
             holder.binding.listName.setText(data.getName());
-            String tags="";
-            for(String s:data.getTags()) tags = tags + s + "/";
-            holder.binding.listTag.setText(tags);
-            String actors="";
-            for(String s:data.getActors()) actors = actors + s + "/";
-            holder.binding.listActors.setText(actors);
+            StringBuilder tags= new StringBuilder();
+            for(String s:data.getTags()) tags.append(s).append("/");
+            holder.binding.listTag.setText(tags.toString());
+            StringBuilder actors= new StringBuilder();
+            for(String s:data.getActors()) actors.append(s).append("/");
+            holder.binding.listActors.setText(actors.toString());
         }
     }
 

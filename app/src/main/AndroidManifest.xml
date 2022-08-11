@@ -46,6 +46,7 @@
             android:launchMode="singleTask"
             android:exported="false">
         </activity>
+        <activity android:name=".list.ListActivity"/>
     </application>
 
 </manifest>
