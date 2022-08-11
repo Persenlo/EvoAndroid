@@ -19,6 +19,23 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <RelativeLayout
+            android:id="@+id/list_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tb_list">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_list"
             android:layout_width="match_parent"
@@ -26,7 +43,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/tb_list"
+            app:layout_constraintTop_toBottomOf="@id/list_info"
             app:tabIndicatorColor="@color/black"
             app:tabIndicatorHeight="3dp"
             app:tabSelectedTextColor="@color/black"

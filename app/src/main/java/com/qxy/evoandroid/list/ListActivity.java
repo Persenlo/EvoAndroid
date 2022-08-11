@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.qxy.evoandroid.Adapter.ListAdapter;
@@ -97,6 +98,7 @@ public class ListActivity extends BaseActivity {
             @Override
             public void onChanged(List<VideoRank.DataDTO.ListDTO> listDTOS) {
                 binding.rvList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+                binding.rvList.addItemDecoration(new DividerItemDecoration(ListActivity.this,DividerItemDecoration.VERTICAL));
                 binding.rvList.setAdapter(new ListAdapter(listDTOS, ListActivity.this));
             }
         });
@@ -125,7 +127,6 @@ public class ListActivity extends BaseActivity {
                 @Override
                 public void onSuccess(VideoRank videoRank) {
                     if (videoRank.getData().getErrorCode().equals("0")) {
-                        System.out.println(videoRank.getData().getDescription());
                         //token有效，进行下一项检测
                         Message message = new Message();
                         message.what = Constant.TOKEN_GET_COMPLETE;

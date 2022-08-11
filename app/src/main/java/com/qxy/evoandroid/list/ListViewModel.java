@@ -39,10 +39,6 @@ import retrofit2.Retrofit;
 
 public class ListViewModel extends AndroidViewModel {
     private final MutableLiveData<List<ListDTO>> listLiveData=new MutableLiveData<>();
-    private Retrofit retrofit;
-    private ApiService apiService;
-    private String cToken;
-    private SharedPreferences sp;
 
     public MutableLiveData<List<ListDTO>> getLiveData() {
         return listLiveData;
@@ -53,20 +49,20 @@ public class ListViewModel extends AndroidViewModel {
     }
 
     public void getListData(String cToken,int type) {
-        sp = getApplication().getSharedPreferences("userToken", 0);
-        retrofit = RetrofitManager.getInstance().getRetrofit(Constant.DOUYIN_OPENAPI);
-        apiService = retrofit.create(ApiService.class);
-        this.cToken=cToken;
+        Retrofit retrofit = RetrofitManager.getInstance().getRetrofit(Constant.DOUYIN_OPENAPI);
+        ApiService apiService = retrofit.create(ApiService.class);
         Call<VideoRank> videoRank = apiService.getVideoRank(cToken, type, 18);
         RetrofitUtil.enqueue(videoRank, new ResponseCallback<>() {
             @Override
             public void onSuccess(VideoRank videoRank) {
-                System.out.println(videoRank.getData().getDescription());
+                if(videoRank.getData().getErrorCode().equals("0")){
+                    listLiveData.setValue(videoRank.getData().getList());
+                }
             }
 
             @Override
             public void onFailure(Throwable t) {
-
+                System.out.println("onFailure");
             }
         });
     }

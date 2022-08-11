@@ -15,11 +15,9 @@
             android:id="@+id/iv_list"
             android:layout_width="75dp"
             android:layout_height="100dp"
-            android:background="@color/teal_700"
             android:contentDescription="@string/movie_poster"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintEnd_toStartOf="@+id/list_guide"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,8 +30,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.109"
-            app:layout_constraintStart_toEndOf="@+id/iv_list"
+            app:layout_constraintStart_toStartOf="@+id/list_guide"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.195" />
 
@@ -44,8 +41,7 @@
             android:contentDescription="@string/movie_tags"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.11"
-            app:layout_constraintStart_toEndOf="@+id/iv_list"
+            app:layout_constraintStart_toStartOf="@+id/list_guide"
             app:layout_constraintTop_toBottomOf="@+id/list_name"
             app:layout_constraintVertical_bias="0.235" />
 
@@ -54,12 +50,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/movie_actors"
+            android:ellipsize="end"
+            android:lines="2"
+            android:maxEms="10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.11"
-            app:layout_constraintStart_toEndOf="@+id/iv_list"
+            app:layout_constraintStart_toStartOf="@+id/list_guide"
             app:layout_constraintTop_toBottomOf="@+id/list_tag"
             app:layout_constraintVertical_bias="0.438" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/list_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="130dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
