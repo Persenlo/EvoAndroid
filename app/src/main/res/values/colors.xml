@@ -13,4 +13,8 @@
     <color name="ui_gray">#c4c4c4</color>
     <color name="ui_gray_2">#ebebeb</color>
 
+    <!--排名-->
+    <color name="rank_bg">#F9C40B</color>
+    <color name="rank_text">#944A0F</color>
+
 </resources>

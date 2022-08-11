@@ -15,16 +15,16 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.qxy.evoandroid.R;
 import com.qxy.evoandroid.databinding.ItemListBinding;
-import com.qxy.evoandroid.model.VideoRank.DataDTO.ListDTO;
+import com.qxy.evoandroid.model.VideoRank.DataDTO;
 
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyHolder> {
-    private final List<ListDTO> list;
+    private final DataDTO dataDTO;
     private final Context context;
 
-    public ListAdapter(List<ListDTO> list, Context context) {
-        this.list = list;
+    public ListAdapter(DataDTO dataDTO, Context context) {
+        this.dataDTO = dataDTO;
         this.context = context;
     }
 
@@ -36,8 +36,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-        ListDTO data=list.get(position);
+        DataDTO.ListDTO data=dataDTO.getList().get(position);
         if(holder.binding!=null){
+            if(position==0||position==1||position==2) {
+                holder.binding.tvRank.setText("Top"+ (position + 1));
+            }else holder.binding.tvRank.setText(position+1);
             //设置海报
             String tag = "ListAdapterTag";
             holder.binding.ivList.setTag(tag);
@@ -51,25 +54,29 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyHolder> {
             //设置名称
             holder.binding.listName.setText(data.getName());
             //设置Tags
-            StringBuilder tags= new StringBuilder();
-            for(int i=0;i<data.getTags().size();i++) {
-                tags.append(data.getTags().get(i));
-                if(i!=data.getTags().size()-1) tags.append("/");
+            if(data.getTags()!=null) {
+                StringBuilder tags = new StringBuilder();
+                for (int i = 0; i < data.getTags().size(); i++) {
+                    tags.append(data.getTags().get(i));
+                    if (i != data.getTags().size() - 1) tags.append("/");
+                }
+                holder.binding.listTag.setText(tags.toString());
             }
-            holder.binding.listTag.setText(tags.toString());
             //设置Actors
-            StringBuilder actors= new StringBuilder();
-            for(int i=0;i<data.getActors().size();i++) {
-                actors.append(data.getActors().get(i));
-                if(i!=data.getActors().size()-1) actors.append("/");
+            if(data.getActors()!=null) {
+                StringBuilder actors = new StringBuilder();
+                for (int i = 0; i < data.getActors().size(); i++) {
+                    actors.append(data.getActors().get(i));
+                    if (i != data.getActors().size() - 1) actors.append("/");
+                }
+                holder.binding.listActors.setText(actors.toString());
             }
-            holder.binding.listActors.setText(actors.toString());
         }
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return dataDTO.getList().size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

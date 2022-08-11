@@ -1,5 +1,6 @@
 package com.qxy.evoandroid.request;
 
+import com.qxy.evoandroid.model.RankVersion;
 import com.qxy.evoandroid.model.UserInfo;
 import com.qxy.evoandroid.model.VideoRank;
 
@@ -57,5 +58,9 @@ public interface ApiService {
      */
     @GET("/discovery/ent/rank/item/")
     Call<VideoRank> getVideoRank(@Header("access-token") String clientToken, @Query("type") int type, @Query("version") int version);
+
+
+    @GET("/discovery/ent/rank/version/")
+    Call<RankVersion> getRankVersion(@Header("access-token")String clientToken, @Query("type")int type, @Query("count")int count);
 
 }

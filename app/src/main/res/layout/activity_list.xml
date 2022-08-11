@@ -26,13 +26,15 @@
             app:layout_constraintTop_toBottomOf="@id/tb_list">
 
             <TextView
+                android:id="@+id/list_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <Spinner
+                android:id="@+id/list_sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
 

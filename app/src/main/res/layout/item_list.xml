@@ -11,6 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="150dp">
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_rank"
+            android:layout_width="35dp"
+            android:layout_height="18sp"
+            android:text="Top1"
+            android:gravity="center"
+            android:textColor="@color/rank_text"
+            android:background="@color/rank_bg"
+            app:layout_constraintStart_toStartOf="@+id/iv_list"
+            app:layout_constraintTop_toTopOf="@+id/iv_list" />
+
         <ImageView
             android:id="@+id/iv_list"
             android:layout_width="75dp"
@@ -26,24 +37,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/movie_name"
-            android:textSize="16sp"
+            android:text="蜘蛛侠：英雄无归"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintHorizontal_bias="0.238"
             app:layout_constraintStart_toStartOf="@+id/list_guide"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.195" />
+            app:layout_constraintVertical_bias="0.126" />
+
+        <TextView
+            android:id="@+id/list_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/movie_area"
+            android:text="2022.01.01/美国"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/list_name"
+            app:layout_constraintTop_toBottomOf="@+id/list_name"
+            app:layout_constraintVertical_bias="0.12" />
 
         <TextView
             android:id="@+id/list_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/movie_tags"
+            android:text="动作/科幻/冒险"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/list_guide"
-            app:layout_constraintTop_toBottomOf="@+id/list_name"
-            app:layout_constraintVertical_bias="0.235" />
+            app:layout_constraintStart_toStartOf="@+id/list_area"
+            app:layout_constraintTop_toBottomOf="@+id/list_area"
+            app:layout_constraintVertical_bias="0.213" />
 
         <TextView
             android:id="@+id/list_actors"
@@ -51,13 +75,13 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/movie_actors"
             android:ellipsize="end"
-            android:lines="2"
+            android:lines="1"
             android:maxEms="10"
+            android:text="乔.沃兹/汤姆.赫兰德/荷兰第"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/list_guide"
+            app:layout_constraintStart_toStartOf="@+id/list_tag"
             app:layout_constraintTop_toBottomOf="@+id/list_tag"
-            app:layout_constraintVertical_bias="0.438" />
+            app:layout_constraintVertical_bias="0.448" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/list_guide"
@@ -65,6 +89,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="130dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="340dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
