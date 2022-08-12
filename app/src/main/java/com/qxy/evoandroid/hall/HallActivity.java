@@ -1,16 +1,17 @@
 package com.qxy.evoandroid.hall;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.qxy.evoandroid.BaseActivity;
+import com.qxy.evoandroid.personalInfoActivity.PersonalInfo;
 import com.qxy.evoandroid.R;
 import com.qxy.evoandroid.databinding.ActivityHallBinding;
 import com.qxy.evoandroid.douyinapi.TokenUtil;
-import com.qxy.evoandroid.userLogin.LoginViewModel;
 
 /**
  * 大厅界面，用于做其它功能的入口
@@ -31,6 +32,26 @@ public class HallActivity extends BaseActivity {
         setContentView(R.layout.activity_hall);
 
         initView();
+
+        //排行榜按钮
+        binding.cvHallRank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        //个人信息按钮
+        binding.cvHallMine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent=new Intent(HallActivity.this,PersonalInfo.class);
+                intent.putExtra("userToken",userToken);
+                intent.putExtra("userOpenID",userOpenId);
+                startActivity(intent);
+            }
+        });
     }
 
 
