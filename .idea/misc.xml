@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/activity_hall.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/activity_main.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/activity_personal_info.xml" value="0.20168066580377575" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/activity_start.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/fragment_fensi.xml" value="0.3416666666666667" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/fragment_guanzhu.xml" value="0.3416666666666667" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/fragment_shiping.xml" value="0.32708333333333334" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/fragment_tab_list.xml" value="0.2421875" />
         <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/drawable/board_round_alpha.xml" value="0.203" />
         <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/layout/activity_dou_yin_entry.xml" value="0.3500905797101449" />
         <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/layout/activity_hall.xml" value="0.33" />

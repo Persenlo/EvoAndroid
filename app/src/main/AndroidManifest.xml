@@ -25,8 +25,11 @@
         android:theme="@style/Theme.EvoAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".PersonalInfoActivity.PersonalInfo"
+            android:exported="false" />
+        <activity
             android:name=".StartActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,9 +46,8 @@
             android:taskAffinity="com.qxy.evoandroid" />
         <activity
             android:name=".userLogin.MainActivity"
-            android:launchMode="singleTask"
-            android:exported="false">
-        </activity>
+            android:exported="false"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>

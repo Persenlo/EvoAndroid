@@ -13,7 +13,7 @@ public class EvoApplication extends Application {
         super.onCreate();
 
         //抖音开发平台的key
-        String clientKey = "aw3gp4qcv8u8lul2";
+        String clientKey = "awpgle99ih9kn4qj";
         DouYinOpenApiFactory.init(new DouYinOpenConfig(clientKey));
     }
 }
