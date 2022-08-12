@@ -26,5 +26,6 @@
     <string name="movie_area">MovieArea</string>
     <string name="movie_tags">MovieTags</string>
     <string name="movie_actors">MovieActors</string>
+    <string name="movie_hot">MovieHot</string>
 
 </resources>

@@ -26,6 +26,7 @@
             app:layout_constraintTop_toBottomOf="@id/tb_list">
 
             <TextView
+                android:layout_marginStart="10dp"
                 android:id="@+id/list_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -34,7 +35,8 @@
                 android:id="@+id/list_sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
 
@@ -70,7 +72,5 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tl_list" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

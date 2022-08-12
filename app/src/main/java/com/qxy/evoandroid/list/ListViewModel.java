@@ -42,9 +42,6 @@ public class ListViewModel extends AndroidViewModel {
         RetrofitUtil.enqueue(videoRank, new ResponseCallback<>() {
             @Override
             public void onSuccess(VideoRank videoRank) {
-                System.out.println("list");
-                System.out.println(videoRank.getData().getErrorCode());
-                System.out.println(videoRank.getData().getDescription());
                 if(videoRank.getData().getErrorCode().equals("0")){
                     dataLiveData.setValue(videoRank.getData());
                 }
@@ -64,9 +61,6 @@ public class ListViewModel extends AndroidViewModel {
         RetrofitUtil.enqueue(rankVersion, new ResponseCallback<RankVersion>() {
             @Override
             public void onSuccess(RankVersion rankVersion) {
-                System.out.println("version");
-                System.out.println(rankVersion.getData().getErrorCode());
-                System.out.println(rankVersion.getData().getDescription());
                 if(rankVersion.getData().getErrorCode().equals("0")){
                     versionLiveData.setValue(rankVersion.getData());
                 }

@@ -69,14 +69,24 @@ public class ListActivity extends BaseActivity {
 
         init();
 
-        //initSpinner();
-
         initToolbar();
 
-        initRecyclerView();
+        initObserver();
+
     }
 
-    private void initSpinner() {
+    private void initObserver() {
+        listViewModel.getDataLiveData().observe(this, new Observer<VideoRank.DataDTO>() {
+            @Override
+            public void onChanged(VideoRank.DataDTO dataDTO) {
+                binding.listRank.setText("本周榜|" + dataDTO.getActiveTime());
+                //RecyclerView设置
+                binding.rvList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+                binding.rvList.addItemDecoration(new DividerItemDecoration(ListActivity.this,DividerItemDecoration.VERTICAL));
+                binding.rvList.setAdapter(new ListAdapter(dataDTO, ListActivity.this,select_type));
+            }
+        });
+        //历史版本的切换
         listViewModel.getVersionLiveData().observe(this, new Observer<VersionData>() {
             @Override
             public void onChanged(VersionData versionData) {
@@ -93,20 +103,26 @@ public class ListActivity extends BaseActivity {
                 binding.listSp.setAdapter(adapter);
                 //Spinner切换条目点击事件
                 binding.listSp.setSelection(0);
-                binding.listSp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                binding.listSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         int position=binding.listSp.getSelectedItemPosition();
                         if(position!=0) {
                             String version = list.get(position - 1).getVersion();
-                            listViewModel.getListData(cToken, select_type, Integer.valueOf(version));
+                            listViewModel.getListData(cToken, select_type, Integer.parseInt(version));
                         }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
                     }
                 });
             }
         });
 
     }
+
 
     //解析时间
     private String getSpinnerItem(String startTime,String endTime){
@@ -145,18 +161,6 @@ public class ListActivity extends BaseActivity {
         }
     }
 
-    private void initRecyclerView() {
-        listViewModel.getDataLiveData().observe(this, new Observer<VideoRank.DataDTO>() {
-            @Override
-            public void onChanged(VideoRank.DataDTO dataDTO) {
-                binding.listRank.setText(dataDTO.getActiveTime());
-                binding.rvList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
-                binding.rvList.addItemDecoration(new DividerItemDecoration(ListActivity.this,DividerItemDecoration.VERTICAL));
-                binding.rvList.setAdapter(new ListAdapter(dataDTO, ListActivity.this));
-            }
-        });
-    }
-
     private void init() {
         sp = this.getSharedPreferences("userToken.xml", 0);
 
@@ -165,9 +169,10 @@ public class ListActivity extends BaseActivity {
         cToken = tokenUtil.getClientToken();
         userToken = tokenUtil.getToken();
         userOpenId = tokenUtil.getOpenId();
-
+        //获取榜单类型
         select_type = getIntent().getIntExtra("SELECT_TYPE", 0);
 
+        //获取一次榜单检测cToken是否有效，避免参数错误请求不到数据
         //初始化Retrofit
         checkRetrofit = RetrofitManager.getInstance().getRetrofit(Constant.DOUYIN_OPENAPI);
         apiService = checkRetrofit.create(ApiService.class);
@@ -180,27 +185,6 @@ public class ListActivity extends BaseActivity {
                 @Override
                 public void onSuccess(VideoRank videoRank) {
                     if (videoRank.getData().getErrorCode().equals("0")) {
-                        //token有效，进行下一项检测
-                        Message message = new Message();
-                        message.what = Constant.TOKEN_GET_COMPLETE;
-                        handler.sendMessage(message);
-                    } else {
-                        //token无效，尝试获取
-                        getClientTokenFromReq();
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-
-                }
-            });
-
-            Call<RankVersion> rankVersion=apiService.getRankVersion(cToken,select_type,10);
-            RetrofitUtil.enqueue(rankVersion, new ResponseCallback<RankVersion>() {
-                @Override
-                public void onSuccess(RankVersion rankVersion) {
-                    if (rankVersion.getData().getErrorCode().equals("0")) {
                         //token有效，进行下一项检测
                         Message message = new Message();
                         message.what = Constant.TOKEN_GET_COMPLETE;
