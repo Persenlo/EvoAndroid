@@ -147,7 +147,6 @@ public class ListActivity extends BaseActivity {
         });
         switch (select_type) {
             case 1:
-                binding.tlList.setVisibility(View.VISIBLE);
                 binding.tbList.setTitle(R.string.rank_rank_name);
                 break;
             case 2:

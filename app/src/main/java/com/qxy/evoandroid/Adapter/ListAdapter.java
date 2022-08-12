@@ -132,7 +132,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyHolder> {
                     influence_hot.setText("影响力热度："+data.getInfluenceHot());
                     //设置LinearLayout
                     layout.setOrientation(LinearLayout.VERTICAL);
-                    layout.setPadding(10,0,0,0);
+                    layout.setPadding(30,30,0,30);
                     layout.addView(discussion_hot);
                     layout.addView(topic_hot);
                     layout.addView(search_hot);
