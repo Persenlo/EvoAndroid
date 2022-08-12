@@ -46,7 +46,7 @@
             android:layout_marginBottom="54dp"
             android:background="@drawable/board_round_alpha"
             app:backgroundTint="@color/ui_gray"
-            android:text="@string/rank_rank_name"
+            android:text="@string/rank_movie_name"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline"

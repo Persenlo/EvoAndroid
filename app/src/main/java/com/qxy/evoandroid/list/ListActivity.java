@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.qxy.evoandroid.Adapter.ListAdapter;
 import com.qxy.evoandroid.BaseActivity;
 import com.qxy.evoandroid.Constant;
@@ -29,7 +30,6 @@ import com.qxy.evoandroid.douyinapi.TokenUtil;
 import com.qxy.evoandroid.http.RetrofitManager;
 import com.qxy.evoandroid.http.RetrofitUtil;
 import com.qxy.evoandroid.http.callback.ResponseCallback;
-import com.qxy.evoandroid.model.RankVersion;
 import com.qxy.evoandroid.model.RankVersion.VersionData;
 import com.qxy.evoandroid.model.UserInfo;
 import com.qxy.evoandroid.model.VideoRank;
@@ -57,7 +57,8 @@ public class ListActivity extends BaseActivity {
     private SharedPreferences sp;
     private ApiService apiService;
     private Retrofit checkRetrofit;
-    private int select_type;
+    private int select_type=1;
+    private int version=0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,8 +109,8 @@ public class ListActivity extends BaseActivity {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         int position=binding.listSp.getSelectedItemPosition();
                         if(position!=0) {
-                            String version = list.get(position - 1).getVersion();
-                            listViewModel.getListData(cToken, select_type, Integer.parseInt(version));
+                            version = Integer.parseInt(list.get(position - 1).getVersion());
+                            listViewModel.getListData(cToken, select_type, version);
                         }
                     }
 
@@ -120,7 +121,25 @@ public class ListActivity extends BaseActivity {
                 });
             }
         });
+        //获取榜单类型
+        binding.listTl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                select_type=tab.getPosition()+1;
+                listViewModel.getListData(cToken,select_type,version);
+                listViewModel.getVersion(cToken,select_type);
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
 
@@ -138,8 +157,8 @@ public class ListActivity extends BaseActivity {
     }
 
     private void initToolbar() {
-        binding.tbList.setNavigationIcon(R.drawable.back);
-        binding.tbList.setNavigationOnClickListener(new View.OnClickListener() {
+        binding.listTb.setNavigationIcon(R.drawable.back);
+        binding.listTb.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -147,13 +166,13 @@ public class ListActivity extends BaseActivity {
         });
         switch (select_type) {
             case 1:
-                binding.tbList.setTitle(R.string.rank_rank_name);
+                binding.listTb.setTitle(R.string.rank_movie_name);
                 break;
             case 2:
-                binding.tbList.setTitle(R.string.rank_teleplay_name);
+                binding.listTb.setTitle(R.string.rank_teleplay_name);
                 break;
             case 3:
-                binding.tbList.setTitle(R.string.rank_variety_name);
+                binding.listTb.setTitle(R.string.rank_variety_name);
                 break;
             default:
                 break;
@@ -168,8 +187,7 @@ public class ListActivity extends BaseActivity {
         cToken = tokenUtil.getClientToken();
         userToken = tokenUtil.getToken();
         userOpenId = tokenUtil.getOpenId();
-        //获取榜单类型
-        select_type = getIntent().getIntExtra("SELECT_TYPE", 0);
+
 
         //获取一次榜单检测cToken是否有效，避免参数错误请求不到数据
         //初始化Retrofit
@@ -210,7 +228,7 @@ public class ListActivity extends BaseActivity {
             public void onSuccess(UserInfo userInfo) {
                 if (userInfo.getData().getErrorCode() == 0) {
                     //已登录
-                    listViewModel.getListData(cToken, select_type,0);
+                    listViewModel.getListData(cToken, select_type,version);
                     listViewModel.getVersion(cToken,select_type);
                 } else {
                     //未登录

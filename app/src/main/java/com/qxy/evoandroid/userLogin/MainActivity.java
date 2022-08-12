@@ -13,8 +13,6 @@ import com.bytedance.sdk.open.douyin.api.DouYinOpenApi;
 import com.qxy.evoandroid.BaseActivity;
 import com.qxy.evoandroid.R;
 import com.qxy.evoandroid.databinding.ActivityMainBinding;
-import com.qxy.evoandroid.douyinapi.TokenUtil;
-import com.qxy.evoandroid.userLogin.LoginViewModel;
 import com.qxy.evoandroid.utils.SingleClickListener;
 
 public class MainActivity extends BaseActivity {
