@@ -1,4 +1,4 @@
-package com.qxy.evoandroid.PersonalInfoActivity.TabListFragments;
+package com.qxy.evoandroid.personalInfoActivity.TabListFragments;
 
 import android.os.Bundle;
 

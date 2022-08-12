@@ -25,7 +25,7 @@
         android:theme="@style/Theme.EvoAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".PersonalInfoActivity.PersonalInfo"
+            android:name=".personalInfoActivity.PersonalInfo"
             android:exported="false" />
         <activity
             android:name=".StartActivity"

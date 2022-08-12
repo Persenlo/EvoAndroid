@@ -7,15 +7,15 @@
     <data>
 
         <variable
-            name="PIViewModel"
-            type="com.qxy.evoandroid.PersonalInfoActivity.PIViewModel" />
+            name="PIVM"
+            type="com.qxy.evoandroid.personalInfoActivity.PIViewModel" />
         <import type="android.view.View"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".PersonalInfoActivity.PersonalInfo">
+        tools:context=".personalInfoActivity.PersonalInfo">
 
 
         <androidx.cardview.widget.CardView
@@ -28,11 +28,10 @@
             app:cardElevation="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:imageUrl="@{PIViewModel.userIcon}"
+                app:imageUrl="@{PIVM.userIcon}"
                 app:srcCompat="@drawable/ic_account_circle" />
         </androidx.cardview.widget.CardView>
 
@@ -43,40 +42,32 @@
             android:layout_marginLeft="17dp"
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
-            android:text="@{PIViewModel.userName}"
+            android:text="@{PIVM.userName}"
             android:textSize="40dp"
             app:layout_constraintLeft_toRightOf="@id/cv_PI_usericon"
             app:layout_constraintTop_toTopOf="@id/cv_PI_usericon" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_PI_username"
-            app:layout_constraintStart_toEndOf="@id/tv_PI_username"
-            app:layout_constraintTop_toTopOf="@id/tv_PI_username">
-
-            <ImageView
+            <TextView
                 android:id="@+id/iv_PI_gender"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_account_circle" />
-        </androidx.cardview.widget.CardView>
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_PI_username"
+                app:layout_constraintStart_toEndOf="@id/tv_PI_username"
+                app:layout_constraintTop_toTopOf="@id/tv_PI_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{PIVM.usergender}"
+                android:textSize="20dp"/>
 
         <TextView
             android:id="@+id/tv_PI_country_city"
-            android:text="中国-上海"
+            android:text="@{PIVM.userLocate}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:textSize="16dp"
             android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_PI_username"
-            app:layout_constraintStart_toEndOf="@+id/cardView2" />
+            app:layout_constraintStart_toEndOf="@+id/iv_PI_gender" />
 
         <TextView
             android:id="@+id/tv_PI_description"
@@ -84,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="17dp"
             android:layout_marginTop="10dp"
-            android:text="这里是个人介绍哦~"
+            android:text="@{PIVM.userDesc}"
             android:textSize="20dp"
             app:layout_constraintLeft_toRightOf="@id/cv_PI_usericon"
             app:layout_constraintBottom_toBottomOf="@+id/cv_PI_usericon" />

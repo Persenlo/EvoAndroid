@@ -1,10 +1,9 @@
-package com.qxy.evoandroid.PersonalInfoActivity;
+package com.qxy.evoandroid.personalInfoActivity;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
@@ -18,9 +17,9 @@ import java.util.ArrayList;
 
 public class PersonalInfo extends BaseActivity implements TabLayout.OnTabSelectedListener {
 
-    private TabLayout tab_title;
-    private ViewPager vp_pager;
-    private ArrayList<String> list = new ArrayList<>();
+    TabLayout tab_title;
+    ViewPager vp_pager;
+    ArrayList<String> list = new ArrayList<>();
 
     PIViewModel PIViewModel;
     ActivityPersonalInfoBinding binding;
@@ -40,9 +39,9 @@ public class PersonalInfo extends BaseActivity implements TabLayout.OnTabSelecte
 
     private void init(){
         PIViewModel= new ViewModelProvider(this)
-                .get(com.qxy.evoandroid.PersonalInfoActivity.PIViewModel.class);
+                .get(com.qxy.evoandroid.personalInfoActivity.PIViewModel.class);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_personal_info);
-        binding.setPIViewModel(PIViewModel);
+        binding.setPIVM(PIViewModel);
         binding.setLifecycleOwner(this);
         userToken=getIntent().getStringExtra("userToken");
         userOpenId=getIntent().getStringExtra("userOpenID");
@@ -80,7 +79,7 @@ public class PersonalInfo extends BaseActivity implements TabLayout.OnTabSelecte
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         //让viewpager显示指定位置的页面
-        vp_pager.setCurrentItem(tab.getPosition());
+        binding.vpPager.setCurrentItem(tab.getPosition());
     }
 
     //取消选中

@@ -1,4 +1,4 @@
-package com.qxy.evoandroid.PersonalInfoActivity.TabListFragments;
+package com.qxy.evoandroid.personalInfoActivity.TabListFragments;
 
 import android.os.Bundle;
 
@@ -10,11 +10,12 @@ import android.view.ViewGroup;
 
 import com.qxy.evoandroid.R;
 
-public class GuanzhuFragment extends Fragment {
 
-    public GuanzhuFragment() {
+public class ShipingFragment extends Fragment {
+    public ShipingFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,6 @@ public class GuanzhuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guanzhu, container, false);
+        return inflater.inflate(R.layout.fragment_shiping, container, false);
     }
 }

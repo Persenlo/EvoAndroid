@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.qxy.evoandroid.BaseActivity;
-import com.qxy.evoandroid.PersonalInfoActivity.PersonalInfo;
+import com.qxy.evoandroid.personalInfoActivity.PersonalInfo;
 import com.qxy.evoandroid.R;
 import com.qxy.evoandroid.databinding.ActivityHallBinding;
 import com.qxy.evoandroid.douyinapi.TokenUtil;

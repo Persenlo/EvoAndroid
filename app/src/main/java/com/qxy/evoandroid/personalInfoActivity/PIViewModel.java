@@ -1,4 +1,4 @@
-package com.qxy.evoandroid.PersonalInfoActivity;
+package com.qxy.evoandroid.personalInfoActivity;
 
 import android.app.Application;
 
@@ -20,6 +20,10 @@ public class PIViewModel extends AndroidViewModel {
 
     private MutableLiveData<String> userName = new MutableLiveData<>();
     private MutableLiveData<String> userIcon = new MutableLiveData<>();
+    private MutableLiveData<String> userLocate = new MutableLiveData<>();
+    private MutableLiveData<String> userDesc = new MutableLiveData<>();
+    private MutableLiveData<String> usergender = new MutableLiveData<>();
+
 
     public PIViewModel(@NonNull Application application) {
         super(application);
@@ -30,13 +34,17 @@ public class PIViewModel extends AndroidViewModel {
         Retrofit retrofit = RetrofitManager.getInstance().getRetrofit(Constant.DOUYIN_OPENAPI);
         ApiService apiService = retrofit.create(ApiService.class);
         Call<UserInfo> userInfo = apiService.getUserInfo(userToken,userToken,userOpenId);
-        RetrofitUtil.enqueue(userInfo, new ResponseCallback<UserInfo>() {
+        RetrofitUtil.enqueue(userInfo, new ResponseCallback<>() {
             @Override
             public void onSuccess(UserInfo userInfo) {
-                if (userInfo.getData().getErrorCode() == 0){
+                if (userInfo.getData().getErrorCode() == 0) {
                     //将信息绘制
-                   userName.setValue(userInfo.getData().getNickname());
-                   userIcon.setValue(userInfo.getData().getAvatar());
+                    userName.setValue(userInfo.getData().getNickname());
+                    userIcon.setValue(userInfo.getData().getAvatarLarger());
+                    userLocate.setValue(userInfo.getData().getCountry()+"-"+userInfo.getData().getCity());
+                    userDesc.setValue(userInfo.getData().getDescription());
+                    if(userInfo.getData().getGender()==0) usergender.setValue("男");
+                    else usergender.setValue("女");
                 }
             }
 
@@ -60,5 +68,17 @@ public class PIViewModel extends AndroidViewModel {
 
     public void setUserIcon(MutableLiveData<String> userIcon) {
         this.userIcon = userIcon;
+    }
+
+    public MutableLiveData<String> getUserLocate() {
+        return userLocate;
+    }
+
+    public MutableLiveData<String> getUserDesc() {
+        return userDesc;
+    }
+
+    public MutableLiveData<String> getUsergender() {
+        return usergender;
     }
 }
