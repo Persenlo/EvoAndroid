@@ -1,6 +1,8 @@
 package com.qxy.evoandroid.personalInfoActivity;
 
 import android.app.Application;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -24,6 +26,8 @@ public class PIViewModel extends AndroidViewModel {
     private MutableLiveData<String> userDesc = new MutableLiveData<>();
     private MutableLiveData<String> usergender = new MutableLiveData<>();
 
+    private MutableLiveData<String> guanzhuNick=new MutableLiveData<>();
+
 
     public PIViewModel(@NonNull Application application) {
         super(application);
@@ -43,9 +47,26 @@ public class PIViewModel extends AndroidViewModel {
                     userIcon.setValue(userInfo.getData().getAvatarLarger());
                     userLocate.setValue(userInfo.getData().getCountry()+"-"+userInfo.getData().getCity());
                     userDesc.setValue(userInfo.getData().getDescription());
-                    if(userInfo.getData().getGender()==0) usergender.setValue("男");
-                    else usergender.setValue("女");
+                    if(userInfo.getData().getGender()==1) usergender.setValue("男");
+                    else if(userInfo.getData().getGender()==2) usergender.setValue("女");
+                    else usergender.setValue("未知");
                 }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+
+        //test
+        Call<FollowList> followList=apiService.getFollowingList(userToken,10,userOpenId);
+        RetrofitUtil.enqueue(followList, new ResponseCallback<>() {
+            @Override
+            public void onSuccess(FollowList followList) {
+                if (followList.getData().getFerrorCode() == 0) {
+                    Log.d("get Follow List",followList.getData().getList().toString());
+                }else Log.d("get Follow List","error code:"+followList.getData().getFerrorCode());
             }
 
             @Override
@@ -72,6 +93,18 @@ public class PIViewModel extends AndroidViewModel {
 
     public MutableLiveData<String> getUserLocate() {
         return userLocate;
+    }
+
+    public void setUserDesc(MutableLiveData<String> userDesc) {
+        this.userDesc = userDesc;
+    }
+
+    public void setUsergender(MutableLiveData<String> usergender) {
+        this.usergender = usergender;
+    }
+
+    public void setUserLocate(MutableLiveData<String> userLocate) {
+        this.userLocate = userLocate;
     }
 
     public MutableLiveData<String> getUserDesc() {

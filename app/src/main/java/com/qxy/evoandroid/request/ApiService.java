@@ -2,13 +2,13 @@ package com.qxy.evoandroid.request;
 
 import com.qxy.evoandroid.model.UserInfo;
 import com.qxy.evoandroid.model.VideoRank;
+import com.qxy.evoandroid.personalInfoActivity.FollowList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.HEAD;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -57,5 +57,12 @@ public interface ApiService {
      */
     @GET("/discovery/ent/rank/item/")
     Call<VideoRank> getVideoRank(@Header("access-token") String clientToken, @Query("type") int type, @Query("version") int version);
+
+    /**
+     *
+     *
+     */
+    @GET("following/list/")
+    Call<FollowList> getFollowingList(@Header("access-token") String headToken,@Query("count") int count,@Query("open_id") String openId);
 
 }
