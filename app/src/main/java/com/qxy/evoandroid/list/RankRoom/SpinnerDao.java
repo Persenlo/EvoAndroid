@@ -6,8 +6,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import java.util.List;
-
 @Dao
 public interface SpinnerDao {
     @Insert
@@ -15,9 +13,6 @@ public interface SpinnerDao {
 
     @Update
     void updateData(SpinnerData... spinnerDatas);
-
-    @Delete
-    void deleteData(SpinnerData... spinnerDatas);
 
     @Query("DELETE FROM historyTime")
     void deleteData();

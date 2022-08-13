@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey;
 
 import com.qxy.evoandroid.model.VideoRank;
 
-import java.util.List;
 
 @Entity(tableName = "rankTable")
 public class Rank {
@@ -21,7 +20,7 @@ public class Rank {
     @ColumnInfo(name = "rank_active_time")//榜单生成时间
     private String time;
     @ColumnInfo(name = "video_rank")
-    private VideoRank videoRank;;
+    private VideoRank videoRank;
     @ColumnInfo(name = "rank_last_time")//最后一次访问榜单时间
     private String lastTime;
 

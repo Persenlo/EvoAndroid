@@ -3,7 +3,6 @@ package com.qxy.evoandroid.list.RankRoom;
 import androidx.room.TypeConverter;
 
 import com.google.gson.Gson;
-import com.qxy.evoandroid.model.RankVersion;
 import com.qxy.evoandroid.model.VideoRank;
 
 public class RankConverter {

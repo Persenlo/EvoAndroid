@@ -1,7 +1,6 @@
 package com.qxy.evoandroid;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory;
 import com.bytedance.sdk.open.douyin.DouYinOpenConfig;

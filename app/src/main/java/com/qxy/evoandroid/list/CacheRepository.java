@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 
 import androidx.room.Room;
 
+import com.qxy.evoandroid.Constant;
 import com.qxy.evoandroid.list.RankRoom.Rank;
 import com.qxy.evoandroid.list.RankRoom.RankDao;
 import com.qxy.evoandroid.list.RankRoom.RankDataBase;
@@ -52,12 +53,24 @@ public class CacheRepository {
             Rank rank = new Rank(type, version, time,videoRank,lastTime);
             rankDao.insertData(rank);
         }
+        //存在该榜单就更新数据
+        else if(isExistRankCache(type,version)) {
+            updateRankCache(type,version,videoRank);
+        }
     }
 
+    //更新榜单数据
+    public void updateRankCache(int type,int version,VideoRank videoRank){
+        Rank rank=getPointRankData(type, version);
+        rank.setVideoRank(videoRank);
+        rank.setLastTime(getNowTime());
+        rankDao.updateData(rank);
+    }
+
+    //判断Spinner表格是否为空
     public boolean isSpinnerEmpty(){
         return spinnerDao.getData()==null;
     }
-
 
     //每日更新历史记录列表
     public void updateSpinner(RankVersion rankVersion) {
@@ -97,6 +110,7 @@ public class CacheRepository {
     //清除所有缓存
     public void cleanAllCache(){
         rankDao.deleteAllRanks();
+        spinnerDao.deleteData();
     }
 
     //清除过期缓存
