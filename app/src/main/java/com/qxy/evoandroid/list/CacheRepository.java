@@ -30,9 +30,9 @@ public class CacheRepository {
 
     public CacheRepository(Context context) {
         //获取DAO
-        RankDataBase rankDataBase= Room.databaseBuilder(context,RankDataBase.class,"rank_cache_database")
-                .allowMainThreadQueries()
-                .build();
+        RankDataBase rankDataBase=Room.databaseBuilder(context.getApplicationContext(),RankDataBase.class,"rank_cache_database")
+                    .allowMainThreadQueries()
+                    .build();
         rankDao = rankDataBase.getRankDao();
         spinnerDao = rankDataBase.getSpinnerDao();
         cleanOutDatedCache();

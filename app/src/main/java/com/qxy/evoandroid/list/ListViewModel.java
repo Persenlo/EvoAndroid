@@ -51,11 +51,10 @@ public class ListViewModel extends AndroidViewModel {
             RetrofitUtil.enqueue(videoRank, new ResponseCallback<>() {
                 @Override
                 public void onSuccess(VideoRank videoRank) {
-
+                    System.out.println(videoRank.getData().getDescription());
                     if (videoRank.getData().getErrorCode().equals("0")) {
                         //本地缓存
                         cacheRepository.SaveCache(videoRank, version, type);
-
                         dataLiveData.setValue(videoRank.getData());
                     }
                 }
