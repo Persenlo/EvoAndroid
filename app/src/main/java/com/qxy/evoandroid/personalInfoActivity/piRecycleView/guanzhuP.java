@@ -12,6 +12,7 @@ public class guanzhuP {
         this.locate=locate;
         this.gender=gender;
     }
+    public guanzhuP(){}
 
     public String getNickName() {
         return nickName;

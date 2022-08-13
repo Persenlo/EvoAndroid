@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,16 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qxy.evoandroid.R;
+import com.qxy.evoandroid.model.FollowInfo;
+import com.qxy.evoandroid.personalInfoActivity.PIViewModel;
 import com.qxy.evoandroid.personalInfoActivity.piRecycleView.GuanzhuAdp;
 import com.qxy.evoandroid.personalInfoActivity.piRecycleView.guanzhuP;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class GuanzhuFragment extends Fragment {
+
     private List<guanzhuP> guanzhu_list;
-    private RecyclerView gzList;
+    private RecyclerView gzList_rv;
+    private PIViewModel viewModel;
 
     public GuanzhuFragment() {
         // Required empty public constructor
@@ -35,16 +39,34 @@ public class GuanzhuFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        viewModel=new ViewModelProvider(requireActivity()).get(PIViewModel.class);
+
         //测试用
         guanzhu_list=new ArrayList<>();
-        gzList= requireActivity().findViewById(R.id.rv_guanzhuList);
-        gzList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        gzList_rv = requireActivity().findViewById(R.id.rv_guanzhuList);
+        gzList_rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         GuanzhuAdp adp=new GuanzhuAdp(guanzhu_list);
-        gzList.setAdapter(adp);
-        guanzhuP p=new guanzhuP(null,"老王","中国-广东-佛山","♂");
+        gzList_rv.setAdapter(adp);
+        /*guanzhuP p=new guanzhuP(null,"老王","中国-广东-佛山","♂");
         guanzhu_list.add(p);
         guanzhu_list.add(p);
-        guanzhu_list.add(p);
+        guanzhu_list.add(p);*/
+        //尝试observe VM中的关注list以实现UI绘制，不一定能行
+        //成功！！！
+        viewModel.getFollowList().observe(getViewLifecycleOwner(),list -> {
+            for(FollowInfo.DataDTO.ListDTO mem : list){
+                guanzhuP p=new guanzhuP();
+                p.setAvatar(mem.getAvatar());
+                p.setLocate(mem.getCountry()+"-"+mem.getProvince()+"-"+mem.getCity());
+                p.setNickName(mem.getNickname());
+                if(mem.getGender()==1) p.setGender("♂");
+                else if(mem.getGender()==2) p.setGender("♀");
+                else p.setGender("/");
+                guanzhu_list.add(p);
+            }
+            adp.notifyItemChanged(adp.getItemCount());
+        });
         adp.notifyItemChanged(adp.getItemCount());
         //
     }

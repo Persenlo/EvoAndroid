@@ -1,23 +1,17 @@
 package com.qxy.evoandroid.hall;
 
 import android.app.Application;
-import android.content.Intent;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.qxy.evoandroid.Constant;
-import com.qxy.evoandroid.R;
-import com.qxy.evoandroid.StartActivity;
-import com.qxy.evoandroid.douyinapi.TokenUtil;
 import com.qxy.evoandroid.http.RetrofitManager;
 import com.qxy.evoandroid.http.RetrofitUtil;
 import com.qxy.evoandroid.http.callback.ResponseCallback;
 import com.qxy.evoandroid.model.UserInfo;
 import com.qxy.evoandroid.request.ApiService;
-import com.qxy.evoandroid.userLogin.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;

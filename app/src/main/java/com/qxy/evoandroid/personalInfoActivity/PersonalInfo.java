@@ -38,6 +38,7 @@ public class PersonalInfo extends BaseActivity implements TabLayout.OnTabSelecte
     }
 
     private void init(){
+        //好像fragment里直接new一个VM就可以获得和Activity同一个VM
         PIViewModel= new ViewModelProvider(this)
                 .get(com.qxy.evoandroid.personalInfoActivity.PIViewModel.class);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_personal_info);

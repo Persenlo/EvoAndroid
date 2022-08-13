@@ -49,8 +49,7 @@ public class GuanzhuAdp extends RecyclerView.Adapter<GuanzhuAdp.ViewHolder> {
         holder.locate.setText(p.getLocate());
         holder.gender.setText(p.getGender());
         holder.userName.setText(p.getNickName());
-       // holder.icon.setImageURI(Uri.parse(p.getAvatar()));测试时忽略
-
+        holder.icon.setImageURI(Uri.parse(p.getAvatar()));
     }
 
     @Override
