@@ -56,7 +56,6 @@ public class ListActivity extends BaseActivity {
     private String userOpenId;
     private SharedPreferences sp;
     private ApiService apiService;
-    private Retrofit checkRetrofit;
     private int select_type=1;
     private int version=0;
 
@@ -77,10 +76,10 @@ public class ListActivity extends BaseActivity {
     }
 
     private void initObserver() {
-        listViewModel.getDataLiveData().observe(this, new Observer<VideoRank.DataDTO>() {
+        listViewModel.getDataLiveData().observe(this, new Observer<>() {
             @Override
             public void onChanged(VideoRank.DataDTO dataDTO) {
-                binding.listRank.setText("本周榜|" + dataDTO.getActiveTime());
+                binding.listRank.setText("榜单生成时间|" + dataDTO.getActiveTime());
                 //RecyclerView设置
                 binding.rvList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
                 binding.rvList.addItemDecoration(new DividerItemDecoration(ListActivity.this,DividerItemDecoration.VERTICAL));
@@ -88,7 +87,7 @@ public class ListActivity extends BaseActivity {
             }
         });
         //历史版本的切换
-        listViewModel.getVersionLiveData().observe(this, new Observer<VersionData>() {
+        listViewModel.getVersionLiveData().observe(this, new Observer<>() {
             @Override
             public void onChanged(VersionData versionData) {
                 //创建Spinner条目
@@ -99,7 +98,7 @@ public class ListActivity extends BaseActivity {
                     spinnerList.add(getSpinnerItem(data.getStartTime(),data.getEndTime()));
                 }
                 //配置spinner适配器adapter
-                ArrayAdapter<String> adapter=new ArrayAdapter<String>(ListActivity.this,android.R.layout.simple_spinner_item,spinnerList);
+                ArrayAdapter<String> adapter=new ArrayAdapter<>(ListActivity.this,android.R.layout.simple_spinner_item,spinnerList);
                 adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
                 binding.listSp.setAdapter(adapter);
                 //Spinner切换条目点击事件
@@ -191,14 +190,14 @@ public class ListActivity extends BaseActivity {
 
         //获取一次榜单检测cToken是否有效，避免参数错误请求不到数据
         //初始化Retrofit
-        checkRetrofit = RetrofitManager.getInstance().getRetrofit(Constant.DOUYIN_OPENAPI);
+        Retrofit checkRetrofit = RetrofitManager.getInstance().getRetrofit(Constant.DOUYIN_OPENAPI);
         apiService = checkRetrofit.create(ApiService.class);
 
         if (cToken.equals("empty")) {
             getClientTokenFromReq();
         } else {
             Call<VideoRank> videoRank = apiService.getVideoRank(cToken, select_type, 0);
-            RetrofitUtil.enqueue(videoRank, new ResponseCallback<VideoRank>() {
+            RetrofitUtil.enqueue(videoRank, new ResponseCallback<>() {
                 @Override
                 public void onSuccess(VideoRank videoRank) {
                     if (videoRank.getData().getErrorCode().equals("0")) {
@@ -223,7 +222,7 @@ public class ListActivity extends BaseActivity {
     //测试获取用户信息
     private void checkUserInfo() {
         Call<UserInfo> userInfo = apiService.getUserInfo(userToken, userToken, userOpenId);
-        RetrofitUtil.enqueue(userInfo, new ResponseCallback<UserInfo>() {
+        RetrofitUtil.enqueue(userInfo, new ResponseCallback<>() {
             @Override
             public void onSuccess(UserInfo userInfo) {
                 if (userInfo.getData().getErrorCode() == 0) {
@@ -253,7 +252,7 @@ public class ListActivity extends BaseActivity {
         ApiService apiService = retrofit.create(ApiService.class);
         //请求ClientToken
         Call<ResponseBody> call = apiService.getClientToken(Constant.CLIENT_KEY, Constant.CLIENT_SECRET, Constant.CLIENT_TYPE);
-        RetrofitUtil.enqueue(call, new ResponseCallback<ResponseBody>() {
+        RetrofitUtil.enqueue(call, new ResponseCallback<>() {
             @Override
             public void onSuccess(ResponseBody body) {
                 //请求成功，开始解析
@@ -280,7 +279,7 @@ public class ListActivity extends BaseActivity {
             //保存ClientToken
             SharedPreferences.Editor spEdit = sp.edit();
             spEdit.putString("client_token", cToken);
-            spEdit.commit();
+            spEdit.apply();
             //进行下一项检测
             Message message = new Message();
             message.what = Constant.TOKEN_GET_COMPLETE;
