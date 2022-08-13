@@ -1,15 +1,18 @@
 package com.qxy.evoandroid.list;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import androidx.room.Room;
 
 import com.qxy.evoandroid.list.RankRoom.Rank;
 import com.qxy.evoandroid.list.RankRoom.RankDao;
 import com.qxy.evoandroid.list.RankRoom.RankDataBase;
-import com.qxy.evoandroid.list.RankRoom.RankDetail;
+import com.qxy.evoandroid.list.RankRoom.SpinnerDao;
+import com.qxy.evoandroid.list.RankRoom.SpinnerData;
+import com.qxy.evoandroid.model.RankVersion;
 import com.qxy.evoandroid.model.VideoRank;
-import com.qxy.evoandroid.model.VideoRank.DataDTO.ListDTO;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -19,10 +22,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
+//排行版缓存仓库
 public class CacheRepository {
     private final RankDao rankDao;
-    private List<String> keyList=new ArrayList<>();
+    private final List<String> keyList=new ArrayList<>();
+    private final SpinnerDao spinnerDao;
 
     public CacheRepository(Context context) {
         //获取DAO
@@ -30,6 +34,8 @@ public class CacheRepository {
                 .allowMainThreadQueries()
                 .build();
         rankDao = rankDataBase.getRankDao();
+        spinnerDao = rankDataBase.getSpinnerDao();
+        cleanOutDatedCache();
     }
 
     //保存某一榜单某一版本具体数据
@@ -42,70 +48,32 @@ public class CacheRepository {
             //保存当前时间
             String lastTime = getNowTime();
 
-//            List<RankDetail> rankDetails = new ArrayList<>();
-//
-//            //榜单具体信息
-//            for (int i = 0; i < videoRank.getData().getList().size(); i++) {
-//                ListDTO data = videoRank.getData().getList().get(i);
-//                //排名
-//                StringBuilder rank = new StringBuilder();
-//                if (i == 0 || i == 1 || i == 2) rank.append("Top");
-//                rank.append(i + 1);
-//                //海报url
-//                String url = data.getPoster();
-//                //设置名称
-//                StringBuilder name = new StringBuilder();
-//                name.append(data.getName());
-//                if (!data.getNameEn().equals(""))
-//                    name.append("(").append(data.getNameEn()).append(")");
-//                //设置发行时间+地域
-//                StringBuilder area = new StringBuilder();
-//                area.append(data.getReleaseDate());
-//                if (data.getAreas() != null) {
-//                    for (String s : data.getAreas()) {
-//                        area.append("/").append(s);
-//                    }
-//                }
-//                //设置Tags
-//                StringBuilder tags = new StringBuilder();
-//                if (data.getTags() != null) {
-//                    for (int j = 0; j < data.getTags().size(); j++) {
-//                        tags.append(data.getTags().get(j));
-//                        if (j != data.getTags().size() - 1) tags.append("/");
-//                    }
-//                }
-//                //设置Actors/Directors
-//                StringBuilder people = new StringBuilder();
-//                if (data.getActors() != null) {
-//                    for (int j = 0; j < data.getActors().size(); j++) {
-//                        people.append(data.getActors().get(j));
-//                        if (j != data.getActors().size() - 1) people.append("/");
-//                    }
-//                } else if (data.getDirectors() != null) {
-//                    people.append("导演:");
-//                    for (int j = 0; j < data.getDirectors().size(); j++) {
-//                        people.append(data.getDirectors().get(j));
-//                        if (j != data.getDirectors().size() - 1) people.append("/");
-//                    }
-//                }
-//                //热度
-//                String hot = "总热度：" + data.getHot();
-//                String DiscussionHot = "讨论热度：" + data.getDiscussionHot();
-//                String TopicHot = "主题热度：" + data.getTopicHot();
-//                String SearchHot = "搜索热度：" + data.getSearchHot();
-//                String InfluenceHot = "影响热度：" + data.getInfluenceHot();
-//
-//                RankDetail rankDetail = new RankDetail(rank.toString(), url, name.toString(), area.toString(), tags.toString(), people.toString(), hot,
-//                        DiscussionHot, TopicHot, SearchHot, InfluenceHot);
-//
-//                rankDetails.add(rankDetail);
-//
-//            }
-
             //添加到数据库
             Rank rank = new Rank(type, version, time,videoRank,lastTime);
             rankDao.insertData(rank);
         }
+    }
+
+    public boolean isSpinnerEmpty(){
+        return spinnerDao.getData()==null;
+    }
+
+
+    //每日更新历史记录列表
+    public void updateSpinner(RankVersion rankVersion) {
+        if(isSpinnerEmpty()){
+            SpinnerData spinnerData=new SpinnerData(getNowTime(),rankVersion);
+            spinnerDao.insertData(spinnerData);
+        }
+        if(!spinnerDao.getData().getLastDay().equals(getNowTime())){
+            SpinnerData spinnerData=new SpinnerData(getNowTime(),rankVersion);
+            spinnerDao.updateData(spinnerData);
+        }
+    }
+
+    //获取历史纪录列表
+    public RankVersion getSpinnerData(){
+        return spinnerDao.getData().getRankVersion();
     }
 
     //判断是否需要保存某一榜单某一版本数据
@@ -114,7 +82,7 @@ public class CacheRepository {
         //是否达到保存上线
         if(keyList.size()>=10) return false;
         //是否保存过该榜单
-        String key=String.valueOf(type)+"-"+String.valueOf(version);
+        String key= type +"-"+ version;
         return !keyList.contains(key);
     }
 
@@ -132,7 +100,7 @@ public class CacheRepository {
     }
 
     //清除过期缓存
-    private void cleanOutDatedCache(){
+    public void cleanOutDatedCache(){
         for(Rank rank:rankDao.getAll()){
             // 日期格式化
             DateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -156,7 +124,7 @@ public class CacheRepository {
     //判断是否存在某一榜单某一版本缓存数据
     public boolean isExistRankCache(int type,int version){
         getRankMap();
-        String key=String.valueOf(type)+"-"+String.valueOf(version);
+        String key= type +"-"+ version;
         return keyList.contains(key);
     }
 
@@ -167,7 +135,7 @@ public class CacheRepository {
 
     //更新榜单最后一次访问时间
     public void UpdateRankLastTime(int type,int version){
-        rankDao.getPointRank(type,version).setLastTime(getNowTime());
+        if (isExistRankCache(type,version)) rankDao.getPointRank(type,version).setLastTime(getNowTime());
     }
 
     //获取当前时间“yyyy-MM-dd”String类型
@@ -175,6 +143,18 @@ public class CacheRepository {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(calendar.getTime());
+    }
+
+    //判断是否联网
+    public boolean isNet(Context context){
+        if(context!=null){
+            //获取连接管理器
+            ConnectivityManager connectivityManager= (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            //获取网络状态
+            NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
+            if(networkInfo!=null) return networkInfo.isAvailable();
+        }
+        return false;
     }
 
 

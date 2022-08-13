@@ -4,20 +4,18 @@ import androidx.room.TypeConverter;
 
 import com.google.gson.Gson;
 import com.qxy.evoandroid.model.RankVersion;
-import com.qxy.evoandroid.model.VideoRank;
 
-public class RankConverter {
-
+public class SpinnerConverter {
     //Gson方法把json格式的string转成List
     @TypeConverter
-    public static VideoRank revert(String rankData){
-        return new Gson().fromJson(rankData,VideoRank.class);
+    public static RankVersion revert(String versionData){
+        return new Gson().fromJson(versionData,RankVersion.class);
     }
 
 
     //把List转成json格式的string
     @TypeConverter
-    public static String converter(VideoRank videoRank){
-        return new Gson().toJson(videoRank);
+    public static String converter(RankVersion rankVersion){
+        return new Gson().toJson(rankVersion);
     }
 }

@@ -1,20 +1,15 @@
 package com.qxy.evoandroid.list;
 
 import android.app.Application;
-import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.room.Room;
 
 import com.qxy.evoandroid.Constant;
 import com.qxy.evoandroid.http.RetrofitManager;
 import com.qxy.evoandroid.http.RetrofitUtil;
 import com.qxy.evoandroid.http.callback.ResponseCallback;
-import com.qxy.evoandroid.list.RankRoom.Rank;
-import com.qxy.evoandroid.list.RankRoom.RankDao;
-import com.qxy.evoandroid.list.RankRoom.RankDataBase;
 import com.qxy.evoandroid.model.RankVersion;
 import com.qxy.evoandroid.model.VideoRank;
 import com.qxy.evoandroid.model.VideoRank.DataDTO;
@@ -27,7 +22,7 @@ import retrofit2.Retrofit;
 public class ListViewModel extends AndroidViewModel {
     private final MutableLiveData<DataDTO> dataLiveData=new MutableLiveData<>();
     private final MutableLiveData<VersionData> versionLiveData=new MutableLiveData<>();
-    private CacheRepository cacheRepository;
+    private final CacheRepository cacheRepository;
 
     public MutableLiveData<VersionData> getVersionLiveData() {
         return versionLiveData;
@@ -37,21 +32,19 @@ public class ListViewModel extends AndroidViewModel {
         return dataLiveData;
     }
 
+    public CacheRepository getCacheRepository() {
+        return cacheRepository;
+    }
+
     public ListViewModel(@NonNull Application application) {
         super(application);
         cacheRepository=new CacheRepository(getApplication());
-        cacheRepository.cleanAllCache();
     }
 
     //获取指定榜单指定版本数据
     public void getListData(String cToken,int type,int version) {
-        //调用缓存
-        if(cacheRepository.isExistRankCache(type, version)){
-            cacheRepository.UpdateRankLastTime(type,version);//更新榜单最后一次访问时间
-            dataLiveData.setValue(cacheRepository.getPointRankData(type,version).getVideoRank().getData());
-        }
-        //没有缓存->网络请求
-        else {
+        //联网->网络请求
+        if(cacheRepository.isNet(getApplication())) {
             Retrofit retrofit = RetrofitManager.getInstance().getRetrofit(Constant.DOUYIN_OPENAPI);
             ApiService apiService = retrofit.create(ApiService.class);
             Call<VideoRank> videoRank = apiService.getVideoRank(cToken, type, version);
@@ -73,27 +66,39 @@ public class ListViewModel extends AndroidViewModel {
                 }
             });
         }
+        //如果存在缓存就调用缓存
+        else if(cacheRepository.isExistRankCache(type, version)){
+            cacheRepository.UpdateRankLastTime(type,version);//更新榜单最后一次访问时间
+            dataLiveData.setValue(cacheRepository.getPointRankData(type,version).getVideoRank().getData());
+        }
     }
 
     //获取指定榜单历史版本信息
     public void getVersion(String cToken,int type){
-        Retrofit retrofit = RetrofitManager.getInstance().getRetrofit(Constant.DOUYIN_OPENAPI);
-        ApiService apiService = retrofit.create(ApiService.class);
-        Call<RankVersion> rankVersion=apiService.getRankVersion(cToken,type,10);
-        RetrofitUtil.enqueue(rankVersion, new ResponseCallback<>() {
-            @Override
-            public void onSuccess(RankVersion rankVersion) {
-
-                if (rankVersion.getData().getErrorCode().equals("0")) {
-                    versionLiveData.setValue(rankVersion.getData());
+        //联网->网络请求
+        if(cacheRepository.isNet(getApplication())) {
+            Retrofit retrofit = RetrofitManager.getInstance().getRetrofit(Constant.DOUYIN_OPENAPI);
+            ApiService apiService = retrofit.create(ApiService.class);
+            Call<RankVersion> rankVersion = apiService.getRankVersion(cToken, type, 10);
+            RetrofitUtil.enqueue(rankVersion, new ResponseCallback<>() {
+                @Override
+                public void onSuccess(RankVersion rankVersion) {
+                    if (rankVersion.getData().getErrorCode().equals("0")) {
+                        cacheRepository.updateSpinner(rankVersion);//保存或者更新Spinner数据
+                        versionLiveData.setValue(rankVersion.getData());
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Throwable t) {
+                @Override
+                public void onFailure(Throwable t) {
 
-            }
-        });
+                }
+            });
+        }
+        //如果存在缓存就调用缓存
+        else if(!cacheRepository.isSpinnerEmpty()){
+            versionLiveData.setValue(cacheRepository.getSpinnerData().getData());
+        }
     }
 
 }

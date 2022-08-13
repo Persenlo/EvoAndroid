@@ -23,12 +23,10 @@ import com.qxy.evoandroid.databinding.ItemListBinding;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyHolder> {
     private final DataDTO dataDTO;
     private final Context context;
-    private final int type;
 
-    public ListAdapter(DataDTO dataDTO, Context context,int type) {
+    public ListAdapter(DataDTO dataDTO, Context context) {
         this.dataDTO = dataDTO;
         this.context = context;
-        this.type=type;
     }
 
     @NonNull

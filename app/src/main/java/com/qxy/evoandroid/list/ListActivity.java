@@ -1,5 +1,6 @@
 package com.qxy.evoandroid.list;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -79,11 +83,11 @@ public class ListActivity extends BaseActivity {
         listViewModel.getDataLiveData().observe(this, new Observer<>() {
             @Override
             public void onChanged(VideoRank.DataDTO dataDTO) {
-                binding.listRank.setText("榜单生成时间|" + dataDTO.getActiveTime());
+                binding.listRank.setText("更新于|" + dataDTO.getActiveTime());
                 //RecyclerView设置
                 binding.rvList.setLayoutManager(new LinearLayoutManager(ListActivity.this));
                 binding.rvList.addItemDecoration(new DividerItemDecoration(ListActivity.this,DividerItemDecoration.VERTICAL));
-                binding.rvList.setAdapter(new ListAdapter(dataDTO, ListActivity.this,select_type));
+                binding.rvList.setAdapter(new ListAdapter(dataDTO, ListActivity.this));
             }
         });
         //历史版本的切换
@@ -139,8 +143,10 @@ public class ListActivity extends BaseActivity {
 
             }
         });
+        binding.listTl.addTab(binding.listTl.newTab().setText(R.string.rank_movie_name));
+        binding.listTl.addTab(binding.listTl.newTab().setText(R.string.rank_teleplay_name));
+        binding.listTl.addTab(binding.listTl.newTab().setText(R.string.rank_variety_name));
     }
-
 
     //解析时间
     private String getSpinnerItem(String startTime,String endTime){
@@ -155,6 +161,7 @@ public class ListActivity extends BaseActivity {
         return sb.toString();
     }
 
+    //设置Toolbar信息
     private void initToolbar() {
         binding.listTb.setNavigationIcon(R.drawable.back);
         binding.listTb.setNavigationOnClickListener(new View.OnClickListener() {
@@ -163,19 +170,30 @@ public class ListActivity extends BaseActivity {
                 finish();
             }
         });
-        switch (select_type) {
-            case 1:
-                binding.listTb.setTitle(R.string.rank_movie_name);
-                break;
-            case 2:
-                binding.listTb.setTitle(R.string.rank_teleplay_name);
-                break;
-            case 3:
-                binding.listTb.setTitle(R.string.rank_variety_name);
-                break;
-            default:
-                break;
-        }
+        //清除所有缓存设置
+        binding.listTb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId()==R.id.rank_clear_cache){
+                    AlertDialog.Builder alertDialog=new AlertDialog.Builder(ListActivity.this);
+                    alertDialog.setTitle("是否清空所有缓存");
+                    alertDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            listViewModel.getCacheRepository().cleanAllCache();
+                        }
+                    });
+                    alertDialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    alertDialog.show();
+                }
+                return false;
+            }
+        });
     }
 
     private void init() {

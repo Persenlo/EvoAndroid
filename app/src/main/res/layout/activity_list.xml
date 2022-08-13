@@ -15,8 +15,10 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/list_tb"
+            app:title="@string/rank_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:menu="@menu/menu_rank"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.tabs.TabLayout
@@ -30,43 +32,44 @@
             app:tabTextAppearance="@style/ListTabStyle"
             app:layout_constraintTop_toBottomOf="@id/list_tb">
 
-            <com.google.android.material.tabs.TabItem
-                android:text="@string/rank_movie_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <com.google.android.material.tabs.TabItem
-                android:text="@string/rank_teleplay_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <com.google.android.material.tabs.TabItem
-                android:text="@string/rank_variety_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+<!--            <com.google.android.material.tabs.TabItem-->
+<!--                android:text="@string/rank_movie_name"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"/>-->
+<!--            <com.google.android.material.tabs.TabItem-->
+<!--                android:text="@string/rank_teleplay_name"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"/>-->
+<!--            <com.google.android.material.tabs.TabItem-->
+<!--                android:text="@string/rank_variety_name"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"/>-->
 
         </com.google.android.material.tabs.TabLayout>
 
         <RelativeLayout
             android:id="@+id/list_info"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/list_tl">
 
             <TextView
-                android:layout_marginStart="10dp"
                 android:id="@+id/list_rank"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp" />
 
             <Spinner
                 android:id="@+id/list_sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true" />
 
         </RelativeLayout>
-
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list"

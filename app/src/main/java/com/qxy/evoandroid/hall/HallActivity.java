@@ -44,21 +44,6 @@ public class HallActivity extends BaseActivity {
         binding.cvHallRank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent.putExtra("SELECT_TYPE",1);
-                startActivity(intent);
-            }
-        });
-        binding.cvHallTeleplay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent.putExtra("SELECT_TYPE",2);
-                startActivity(intent);
-            }
-        });
-        binding.cvHallVariety.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent.putExtra("SELECT_TYPE",3);
                 startActivity(intent);
             }
         });

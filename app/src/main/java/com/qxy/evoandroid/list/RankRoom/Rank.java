@@ -2,6 +2,7 @@ package com.qxy.evoandroid.list.RankRoom;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.qxy.evoandroid.model.VideoRank;
@@ -20,13 +21,11 @@ public class Rank {
     @ColumnInfo(name = "rank_active_time")//榜单生成时间
     private String time;
     @ColumnInfo(name = "video_rank")
-    private VideoRank videoRank;
-    @ColumnInfo(name = "rank_detail")
-    private List<RankDetail> rankDetails;
+    private VideoRank videoRank;;
     @ColumnInfo(name = "rank_last_time")//最后一次访问榜单时间
     private String lastTime;
 
-
+    @Ignore
     public Rank() {
     }
 
@@ -38,13 +37,6 @@ public class Rank {
         this.lastTime = lastTime;
     }
 
-    public Rank(int type, int version, String time, String lastTime, List<RankDetail> rankDetails) {
-        this.type = type;
-        this.version = version;
-        this.time = time;
-        this.lastTime=lastTime;
-        this.rankDetails = rankDetails;
-    }
 
     public int getId() {
         return id;
@@ -76,14 +68,6 @@ public class Rank {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public List<RankDetail> getRankDetails() {
-        return rankDetails;
-    }
-
-    public void setRankDetails(List<RankDetail> rankDetails) {
-        this.rankDetails = rankDetails;
     }
 
     public String getLastTime() {
