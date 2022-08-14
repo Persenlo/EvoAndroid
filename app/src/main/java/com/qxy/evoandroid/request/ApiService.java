@@ -5,7 +5,6 @@ import com.qxy.evoandroid.model.FollowInfo;
 import com.qxy.evoandroid.model.UserInfo;
 import com.qxy.evoandroid.model.VideoRank;
 import com.qxy.evoandroid.model.VideosInfo;
-import com.qxy.evoandroid.personalInfoActivity.FollowList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

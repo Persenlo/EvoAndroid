@@ -1,5 +1,7 @@
 package com.qxy.evoandroid.personalInfoActivity.piRecycleView;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.qxy.evoandroid.R;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 public class GuanzhuAdp extends RecyclerView.Adapter<GuanzhuAdp.ViewHolder> {
@@ -49,7 +56,21 @@ public class GuanzhuAdp extends RecyclerView.Adapter<GuanzhuAdp.ViewHolder> {
         holder.locate.setText(p.getLocate());
         holder.gender.setText(p.getGender());
         holder.userName.setText(p.getNickName());
-        holder.icon.setImageURI(Uri.parse(p.getAvatar()));
+        //holder.icon.setImageURI(Uri.parse(p.getAvatar()));
+        try {
+            URL aURL = new URL(p.getAvatar());
+            URLConnection conn = aURL.openConnection();
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            Bitmap bm = BitmapFactory.decodeStream(bis);
+            holder.icon.setImageBitmap(bm);
+            bis.close();
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

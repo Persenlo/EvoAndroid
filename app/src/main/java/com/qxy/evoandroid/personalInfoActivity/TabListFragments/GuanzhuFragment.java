@@ -42,16 +42,11 @@ public class GuanzhuFragment extends Fragment {
 
         viewModel=new ViewModelProvider(requireActivity()).get(PIViewModel.class);
 
-        //测试用
         guanzhu_list=new ArrayList<>();
         gzList_rv = requireActivity().findViewById(R.id.rv_guanzhuList);
         gzList_rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         GuanzhuAdp adp=new GuanzhuAdp(guanzhu_list);
         gzList_rv.setAdapter(adp);
-        /*guanzhuP p=new guanzhuP(null,"老王","中国-广东-佛山","♂");
-        guanzhu_list.add(p);
-        guanzhu_list.add(p);
-        guanzhu_list.add(p);*/
         //尝试observe VM中的关注list以实现UI绘制，不一定能行
         //成功！！！
         viewModel.getFollowList().observe(getViewLifecycleOwner(),list -> {
