@@ -6,7 +6,6 @@ import android.net.NetworkInfo;
 
 import androidx.room.Room;
 
-import com.qxy.evoandroid.Constant;
 import com.qxy.evoandroid.list.RankRoom.Rank;
 import com.qxy.evoandroid.list.RankRoom.RankDao;
 import com.qxy.evoandroid.list.RankRoom.RankDataBase;
