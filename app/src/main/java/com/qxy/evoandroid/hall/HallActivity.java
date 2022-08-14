@@ -13,6 +13,7 @@ import com.qxy.evoandroid.R;
 import com.qxy.evoandroid.databinding.ActivityHallBinding;
 import com.qxy.evoandroid.douyinapi.TokenUtil;
 import com.qxy.evoandroid.list.ListActivity;
+import com.qxy.evoandroid.personalInfoActivity.PersonalInfo;
 import com.qxy.evoandroid.userLogin.LoginViewModel;
 
 /**
@@ -35,19 +36,26 @@ public class HallActivity extends BaseActivity {
 
         initView();
 
-        initRank();
-    }
-
-    //跳转排行榜
-    private void initRank() {
-        Intent intent=new Intent(HallActivity.this, ListActivity.class);
+        //排行榜按钮
         binding.cvHallRank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent=new Intent(HallActivity.this, ListActivity.class);
                 startActivity(intent);
             }
         });
 
+        //个人信息按钮
+        binding.cvHallMine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent=new Intent(HallActivity.this, PersonalInfo.class);
+                intent.putExtra("userToken",userToken);
+                intent.putExtra("userOpenID",userOpenId);
+                startActivity(intent);
+            }
+        });
     }
 
 

@@ -12,6 +12,7 @@
     <color name="ui_red">#ef5350</color>
     <color name="ui_gray">#c4c4c4</color>
     <color name="ui_gray_2">#ebebeb</color>
+    <color name="grey">#FF777777</color>
 
     <!--排名-->
     <color name="rank_bg">#F9C40B</color>

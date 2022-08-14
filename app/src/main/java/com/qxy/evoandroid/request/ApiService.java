@@ -1,15 +1,17 @@
 package com.qxy.evoandroid.request;
 
+import com.qxy.evoandroid.model.FansInfo;
+import com.qxy.evoandroid.model.FollowInfo;
 import com.qxy.evoandroid.model.RankVersion;
 import com.qxy.evoandroid.model.UserInfo;
 import com.qxy.evoandroid.model.VideoRank;
+import com.qxy.evoandroid.model.VideosInfo;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.HEAD;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -59,8 +61,40 @@ public interface ApiService {
     @GET("/discovery/ent/rank/item/")
     Call<VideoRank> getVideoRank(@Header("access-token") String clientToken, @Query("type") int type, @Query("version") int version);
 
-
     @GET("/discovery/ent/rank/version/")
     Call<RankVersion> getRankVersion(@Header("access-token")String clientToken, @Query("type")int type, @Query("count")int count);
+
+    /**
+     *
+     * @param accessToken   token
+     * @param openId        openid
+     * @param cursor        分页游标, 第一页请求cursor是0, response中会返回下一页请求用到的cursor, 同时response还会返回has_more来表明是否有更多的数据。
+     * @param count         每页数量 最大不能超过20
+     * @return
+     */
+    @GET("/fans/list/")
+    Call<FansInfo> getFansInfo(@Header("access-token") String accessToken, @Query("open_id") String openId, @Query("cursor") String cursor, @Query("count") String count);
+
+    /**
+     *
+     * @param accessToken   token
+     * @param count         每页数量
+     * @param openId        通过/oauth/access_token/获取，用户唯一标志
+     * @param cursor        分页游标, 第一页请求cursor是0, response中会返回下一页请求用到的cursor, 同时response还会返回has_more来表明是否有更多的数据。
+     * @return
+     */
+    @GET("/following/list/")
+    Call<FollowInfo> getFollowInfo(@Header("access-token") String accessToken, @Query("count") String count, @Query("open_id") String openId, @Query("cursor") String cursor);
+
+    /**
+     *
+     * @param accessToken   token
+     * @param openId        openid
+     * @param cursor        分页游标, 第一页请求cursor是0, response中会返回下一页请求用到的cursor, 同时response还会返回has_more来表明是否有更多的数据。目前最多只支持获取 4 页
+     * @param count         每页数量
+     * @return
+     */
+    @GET("/video/list/")
+    Call<VideosInfo> getVideoInfo(@Header("access-token") String accessToken, @Query("open_id") String openId, @Query("cursor") String cursor, @Query("count") String count);
 
 }
