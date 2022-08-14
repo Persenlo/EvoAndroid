@@ -5,24 +5,9 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.qxy.evoandroid.Constant;
 import com.qxy.evoandroid.StartActivity;
-import com.qxy.evoandroid.http.RetrofitManager;
-import com.qxy.evoandroid.http.RetrofitUtil;
-import com.qxy.evoandroid.http.callback.ResponseCallback;
-import com.qxy.evoandroid.request.ApiService;
 import com.qxy.evoandroid.userLogin.MainActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Retrofit;
 
 
 /**
