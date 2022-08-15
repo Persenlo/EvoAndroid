@@ -50,8 +50,6 @@ public class PIViewModel extends AndroidViewModel {
     private MutableLiveData<String> userDesc = new MutableLiveData<>();
     private MutableLiveData<String> usergender = new MutableLiveData<>();
 
-    private MutableLiveData<String> guanzhuNick=new MutableLiveData<>();
-
     //每次获取10个
     private final String count = "10";
 

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qxy.evoandroid.R;
+import com.qxy.evoandroid.model.VideosInfo;
 import com.qxy.evoandroid.personalInfoActivity.PIViewModel;
 import com.qxy.evoandroid.personalInfoActivity.videoInfo.videoAdp;
 import com.qxy.evoandroid.personalInfoActivity.videoInfo.videoItem;
@@ -29,7 +30,6 @@ public class ShipingFragment extends Fragment {
     private PIViewModel viewModel;
 
     public ShipingFragment() {
-        // Required empty public constructor
     }
 
 
@@ -59,17 +59,21 @@ public class ShipingFragment extends Fragment {
         m.setOrientation(LinearLayoutManager.HORIZONTAL);
 
         videoList_rv.setLayoutManager(lm);
-        videoAdp adp=new videoAdp(video_list);
+        videoAdp adp=new videoAdp(getContext(),video_list);
         videoList_rv.setAdapter(adp);
-        video_list.add(new videoItem());
-        video_list.add(new videoItem());
-        video_list.add(new videoItem());
-        video_list.add(new videoItem());
-        video_list.add(new videoItem());
-        video_list.add(new videoItem());
-        video_list.add(new videoItem());
-        video_list.add(new videoItem());
 
+        viewModel.getVideoList().observe(getViewLifecycleOwner(),list->{
+            for(VideosInfo.DataDTO.ListDTO mem: list){
+                videoItem v =new videoItem();
+                //封面先放放，设置imageview的网络uri还有点头疼，可能要用ViewModel，但也很麻烦
+                v.setTitle(mem.getTitle());
+                v.setPlay_count(mem.getStatistics().getPlayCount());
+                v.setComment_count(mem.getStatistics().getCommentCount());
+                v.setOn_top(mem.isIsTop());
+                video_list.add(v);
+            }
+           adp.notifyItemChanged(adp.getItemCount());
+        });
         adp.notifyItemChanged(adp.getItemCount());
     }
 }
