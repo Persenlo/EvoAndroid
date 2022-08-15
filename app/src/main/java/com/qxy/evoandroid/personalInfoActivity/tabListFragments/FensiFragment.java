@@ -1,4 +1,4 @@
-package com.qxy.evoandroid.personalInfoActivity.TabListFragments;
+package com.qxy.evoandroid.personalInfoActivity.tabListFragments;
 
 
 import android.os.Bundle;
@@ -7,30 +7,27 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.qxy.evoandroid.R;
+import com.qxy.evoandroid.databinding.FragmentFensiBinding;
 import com.qxy.evoandroid.model.FansInfo;
-import com.qxy.evoandroid.model.FollowInfo;
 import com.qxy.evoandroid.personalInfoActivity.PIViewModel;
 import com.qxy.evoandroid.personalInfoActivity.piRecycleView.FensiAdp;
-import com.qxy.evoandroid.personalInfoActivity.piRecycleView.GuanzhuAdp;
-import com.qxy.evoandroid.personalInfoActivity.piRecycleView.fensiP;
-import com.qxy.evoandroid.personalInfoActivity.piRecycleView.guanzhuP;
+import com.qxy.evoandroid.personalInfoActivity.piRecycleView.FensiP;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FensiFragment extends Fragment {
-    private List<fensiP> fensi_list;
-    private RecyclerView fsList_rv;
+
+    private List<FensiP> fensi_list;
     private PIViewModel viewModel;
+    private FragmentFensiBinding binding;
+
     public FensiFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -45,21 +42,18 @@ public class FensiFragment extends Fragment {
         viewModel=new ViewModelProvider(requireActivity()).get(PIViewModel.class);
 
         fensi_list=new ArrayList<>();
-        fsList_rv = requireActivity().findViewById(R.id.rv_fensiList);
-        fsList_rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        binding.rvFensiList.setLayoutManager(new LinearLayoutManager(getActivity()));
         FensiAdp adp=new FensiAdp(fensi_list);
-        fsList_rv.setAdapter(adp);
-        //尝试observe VM中的关注list以实现UI绘制，不一定能行
-        //成功！！！
+        binding.rvFensiList.setAdapter(adp);
+        //observe VM中的关注list以实现UI绘制
         viewModel.getFanList().observe(getViewLifecycleOwner(),list -> {
             for(FansInfo.DataDTO.ListDTO mem : list){
-                fensiP p=new fensiP();
+                FensiP p=new FensiP();
                 p.setAvatar(mem.getAvatar());
                 p.setLocate(mem.getCountry()+"-"+mem.getProvince()+"-"+mem.getCity());
                 p.setNickName(mem.getNickname());
-                if(mem.getGender()==1) p.setGender("♂");
-                else if(mem.getGender()==2) p.setGender("♀");
-                else p.setGender("/");
+                p.setGender(mem.getGender());
                 fensi_list.add(p);
             }
             adp.notifyItemChanged(adp.getItemCount());
@@ -72,6 +66,7 @@ public class FensiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fensi, container, false);
+        binding=FragmentFensiBinding.inflate(inflater);
+        return binding.getRoot();
     }
 }

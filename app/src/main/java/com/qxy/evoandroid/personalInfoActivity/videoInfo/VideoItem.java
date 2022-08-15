@@ -5,23 +5,28 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class videoItem {
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
+public class VideoItem extends BaseObservable {
 
     private String title;
-    private Boolean on_top;
+    private Boolean on_top=false;//暂缓
     private String play_count;
     private String comment_count;
     private String time;
-    private Uri cover;
+    private String cover;
 
-    public Uri getCover() {
+    @Bindable
+    public String getCover() {
         return cover;
     }
 
-    public void setCover(Uri cover) {
+    public void setCover(String cover) {
         this.cover = cover;
     }
 
+    @Bindable
     public String getTitle() {
         return title;
     }
@@ -30,6 +35,7 @@ public class videoItem {
         this.title = title;
     }
 
+    @Bindable
     public Boolean getOn_top() {
         return on_top;
     }
@@ -38,6 +44,7 @@ public class videoItem {
         this.on_top = on_top;
     }
 
+    @Bindable
     public String getPlay_count() {
         return play_count;
     }
@@ -46,6 +53,7 @@ public class videoItem {
         this.play_count = play_count;
     }
 
+    @Bindable
     public String getComment_count() {
         return comment_count;
     }
@@ -54,6 +62,7 @@ public class videoItem {
         this.comment_count = comment_count;
     }
 
+    @Bindable
     public String getTime() {
         return time;
     }
@@ -62,10 +71,7 @@ public class videoItem {
         this.time = time;
     }
 
-
-
-    public videoItem(){
-    }
+    public VideoItem(){}
 
 
 }

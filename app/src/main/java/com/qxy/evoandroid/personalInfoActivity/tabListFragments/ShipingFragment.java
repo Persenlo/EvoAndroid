@@ -1,23 +1,21 @@
-package com.qxy.evoandroid.personalInfoActivity.TabListFragments;
+package com.qxy.evoandroid.personalInfoActivity.tabListFragments;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.qxy.evoandroid.R;
+import com.qxy.evoandroid.databinding.FragmentShipingBinding;
 import com.qxy.evoandroid.model.VideosInfo;
 import com.qxy.evoandroid.personalInfoActivity.PIViewModel;
-import com.qxy.evoandroid.personalInfoActivity.videoInfo.videoAdp;
-import com.qxy.evoandroid.personalInfoActivity.videoInfo.videoItem;
+import com.qxy.evoandroid.personalInfoActivity.videoInfo.VideoAdp;
+import com.qxy.evoandroid.personalInfoActivity.videoInfo.VideoItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +23,11 @@ import java.util.List;
 
 public class ShipingFragment extends Fragment {
 
-    private List<videoItem> video_list;
-    private RecyclerView videoList_rv;
+    private List<VideoItem> video_list;
+    private FragmentShipingBinding binding;
     private PIViewModel viewModel;
 
-    public ShipingFragment() {
-    }
+    public ShipingFragment() {}
 
 
     @Override
@@ -41,8 +38,8 @@ public class ShipingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shiping, container, false);
+        binding= FragmentShipingBinding.inflate(inflater);
+        return binding.getRoot();
     }
 
     @Override
@@ -51,26 +48,24 @@ public class ShipingFragment extends Fragment {
         viewModel=new ViewModelProvider(requireActivity()).get(PIViewModel.class);
 
         video_list=new ArrayList<>();
-        videoList_rv=requireActivity().findViewById(R.id.rv_videoList);
 
         StaggeredGridLayoutManager lm=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
 
-        LinearLayoutManager m=new LinearLayoutManager(getActivity());
-        m.setOrientation(LinearLayoutManager.HORIZONTAL);
-
-        videoList_rv.setLayoutManager(lm);
-        videoAdp adp=new videoAdp(getContext(),video_list);
-        videoList_rv.setAdapter(adp);
+        binding.rvVideoList.setLayoutManager(lm);
+        VideoAdp adp=new VideoAdp(getContext(),video_list);
+        binding.rvVideoList.setAdapter(adp);
 
         viewModel.getVideoList().observe(getViewLifecycleOwner(),list->{
             for(VideosInfo.DataDTO.ListDTO mem: list){
-                videoItem v =new videoItem();
-                //封面先放放，设置imageview的网络uri还有点头疼，可能要用ViewModel，但也很麻烦
+                VideoItem v =new VideoItem();
+                v.setCover(mem.getCover());
                 v.setTitle(mem.getTitle());
                 v.setPlay_count(mem.getStatistics().getPlayCount());
                 v.setComment_count(mem.getStatistics().getCommentCount());
-                v.setOn_top(mem.isIsTop());
-                video_list.add(v);
+                v.setTime(mem.getCreateTime());
+                //v.setOn_top(mem.isIsTop());
+                if(mem.isIsTop()) video_list.add(0,v);
+                else video_list.add(v);
             }
            adp.notifyItemChanged(adp.getItemCount());
         });

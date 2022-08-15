@@ -1,4 +1,4 @@
-package com.qxy.evoandroid.personalInfoActivity.TabListFragments;
+package com.qxy.evoandroid.personalInfoActivity.tabListFragments;
 
 import android.os.Bundle;
 
@@ -13,23 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qxy.evoandroid.R;
+import com.qxy.evoandroid.databinding.FragmentFensiBinding;
+import com.qxy.evoandroid.databinding.FragmentGuanzhuBinding;
 import com.qxy.evoandroid.model.FollowInfo;
 import com.qxy.evoandroid.personalInfoActivity.PIViewModel;
 import com.qxy.evoandroid.personalInfoActivity.piRecycleView.GuanzhuAdp;
-import com.qxy.evoandroid.personalInfoActivity.piRecycleView.guanzhuP;
+import com.qxy.evoandroid.personalInfoActivity.piRecycleView.GuanzhuP;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GuanzhuFragment extends Fragment {
 
-    private List<guanzhuP> guanzhu_list;
-    private RecyclerView gzList_rv;
+    private List<GuanzhuP> guanzhu_list;
+    private FragmentGuanzhuBinding binding;
     private PIViewModel viewModel;
 
-    public GuanzhuFragment() {
-        // Required empty public constructor
-    }
+    public GuanzhuFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,34 +41,29 @@ public class GuanzhuFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         viewModel=new ViewModelProvider(requireActivity()).get(PIViewModel.class);
-
         guanzhu_list=new ArrayList<>();
-        gzList_rv = requireActivity().findViewById(R.id.rv_guanzhuList);
-        gzList_rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.rvGuanzhuList.setLayoutManager(new LinearLayoutManager(getActivity()));
         GuanzhuAdp adp=new GuanzhuAdp(guanzhu_list);
-        gzList_rv.setAdapter(adp);
-        //尝试observe VM中的关注list以实现UI绘制，不一定能行
-        //成功！！！
+        binding.rvGuanzhuList.setAdapter(adp);
+        //observe VM中的关注list以实现UI绘制
         viewModel.getFollowList().observe(getViewLifecycleOwner(),list -> {
             for(FollowInfo.DataDTO.ListDTO mem : list){
-                guanzhuP p=new guanzhuP();
+                GuanzhuP p=new GuanzhuP();
                 p.setAvatar(mem.getAvatar());
                 p.setLocate(mem.getCountry()+"-"+mem.getProvince()+"-"+mem.getCity());
                 p.setNickName(mem.getNickname());
-                if(mem.getGender()==1) p.setGender("♂");
-                else if(mem.getGender()==2) p.setGender("♀");
-                else p.setGender("/");
+                p.setGender(mem.getGender());
                 guanzhu_list.add(p);
             }
             adp.notifyItemChanged(adp.getItemCount());
         });
         adp.notifyItemChanged(adp.getItemCount());
-        //
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_guanzhu, container, false);
+        binding= FragmentGuanzhuBinding.inflate(inflater);
+        return binding.getRoot();
     }
 }
