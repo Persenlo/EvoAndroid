@@ -77,7 +77,7 @@ public class CacheRepository {
             SpinnerData spinnerData=new SpinnerData(getNowTime(),rankVersion);
             spinnerDao.insertData(spinnerData);
         }
-        if(!spinnerDao.getData().getLastDay().equals(getNowTime())){
+        else if(!spinnerDao.getData().getLastDay().equals(getNowTime())){
             SpinnerData spinnerData=new SpinnerData(getNowTime(),rankVersion);
             spinnerDao.updateData(spinnerData);
         }
@@ -156,18 +156,6 @@ public class CacheRepository {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(calendar.getTime());
-    }
-
-    //判断是否联网
-    public boolean isNet(Context context){
-        if(context!=null){
-            //获取连接管理器
-            ConnectivityManager connectivityManager= (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            //获取网络状态
-            NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
-            if(networkInfo!=null) return networkInfo.isAvailable();
-        }
-        return false;
     }
 
 

@@ -56,11 +56,18 @@ public interface ApiService {
      * @param clientToken   token
      * @param type          类型
      * @param version       版本
-     * @return
+     * @return 榜单数据
      */
     @GET("/discovery/ent/rank/item/")
     Call<VideoRank> getVideoRank(@Header("access-token") String clientToken, @Query("type") int type, @Query("version") int version);
 
+    /**
+     *
+     * @param clientToken  token
+     * @param type         类型
+     * @param count        数量
+     * @return 榜单版本数据
+     */
     @GET("/discovery/ent/rank/version/")
     Call<RankVersion> getRankVersion(@Header("access-token")String clientToken, @Query("type")int type, @Query("count")int count);
 

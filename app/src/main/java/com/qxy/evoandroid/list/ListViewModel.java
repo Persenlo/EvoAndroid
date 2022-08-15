@@ -1,6 +1,9 @@
 package com.qxy.evoandroid.list;
 
 import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -44,7 +47,7 @@ public class ListViewModel extends AndroidViewModel {
     //获取指定榜单指定版本数据
     public void getListData(String cToken,int type,int version) {
         //联网->网络请求
-        if(cacheRepository.isNet(getApplication())) {
+        if(NetUtils.isNet(getApplication())) {
             Retrofit retrofit = RetrofitManager.getInstance().getRetrofit(Constant.DOUYIN_OPENAPI);
             ApiService apiService = retrofit.create(ApiService.class);
             Call<VideoRank> videoRank = apiService.getVideoRank(cToken, type, version);
@@ -65,8 +68,9 @@ public class ListViewModel extends AndroidViewModel {
                 }
             });
         }
-        //如果存在缓存就调用缓存
-        else if(cacheRepository.isExistRankCache(type, version)){
+        //没有网络
+        else if(cacheRepository.isExistRankCache(type, version)) {
+            //存在缓存设置数据
             cacheRepository.UpdateRankLastTime(type,version);//更新榜单最后一次访问时间
             dataLiveData.setValue(cacheRepository.getPointRankData(type,version).getVideoRank().getData());
         }
@@ -75,7 +79,7 @@ public class ListViewModel extends AndroidViewModel {
     //获取指定榜单历史版本信息
     public void getVersion(String cToken,int type){
         //联网->网络请求
-        if(cacheRepository.isNet(getApplication())) {
+        if(NetUtils.isNet(getApplication())) {
             Retrofit retrofit = RetrofitManager.getInstance().getRetrofit(Constant.DOUYIN_OPENAPI);
             ApiService apiService = retrofit.create(ApiService.class);
             Call<RankVersion> rankVersion = apiService.getRankVersion(cToken, type, 10);
@@ -94,10 +98,11 @@ public class ListViewModel extends AndroidViewModel {
                 }
             });
         }
-        //如果存在缓存就调用缓存
+        //如果没有网络存在缓存就调用缓存
         else if(!cacheRepository.isSpinnerEmpty()){
             versionLiveData.setValue(cacheRepository.getSpinnerData().getData());
         }
     }
+
 
 }

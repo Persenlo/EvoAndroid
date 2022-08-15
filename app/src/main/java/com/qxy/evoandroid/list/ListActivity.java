@@ -113,7 +113,16 @@ public class ListActivity extends BaseActivity {
                         int position=binding.listSp.getSelectedItemPosition();
                         if(position!=0) {
                             version = Integer.parseInt(list.get(position - 1).getVersion());
-                            listViewModel.getListData(cToken, select_type, version);
+                            //如果没有网络并且没有缓存,设置占位图
+                            if(!NetUtils.isNet(ListActivity.this)&&!listViewModel.getCacheRepository().isExistRankCache(select_type,version)){
+                                binding.listNoNet.setVisibility(View.VISIBLE);
+                                binding.rvList.setVisibility(View.GONE);
+                            }
+                            else {
+                                binding.listNoNet.setVisibility(View.GONE);
+                                binding.rvList.setVisibility(View.VISIBLE);
+                                listViewModel.getListData(cToken, select_type, version);
+                            }
                         }
                     }
 
@@ -129,8 +138,16 @@ public class ListActivity extends BaseActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 select_type=tab.getPosition()+1;
-                listViewModel.getListData(cToken,select_type,version);
-                listViewModel.getVersion(cToken,select_type);
+                if(!NetUtils.isNet(ListActivity.this)&&!listViewModel.getCacheRepository().isExistRankCache(select_type,version)){
+                    binding.listNoNet.setVisibility(View.VISIBLE);
+                    binding.rvList.setVisibility(View.GONE);
+                }
+                else {
+                    binding.listNoNet.setVisibility(View.GONE);
+                    binding.rvList.setVisibility(View.VISIBLE);
+                    listViewModel.getListData(cToken,select_type,version);
+                    listViewModel.getVersion(cToken,select_type);
+                }
             }
 
             @Override

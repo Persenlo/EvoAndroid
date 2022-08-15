@@ -48,6 +48,7 @@
             android:exported="false">
         </activity>
         <activity android:name=".list.ListActivity"/>
+        <activity android:name=".personalInfoActivity.PersonalInfo"/>
     </application>
 
 </manifest>
