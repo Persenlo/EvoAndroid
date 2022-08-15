@@ -2,8 +2,7 @@ package com.qxy.evoandroid.personalInfoActivity.videoInfo;
 
 public class videoItem {
     private String test;
-    public videoItem(String i){
-        this.test=i;
+    public videoItem(){
     }
 
     public String getTest() {

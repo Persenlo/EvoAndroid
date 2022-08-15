@@ -29,11 +29,10 @@ public class videoAdp extends RecyclerView.Adapter<videoAdp.ViewHolder>{
         TextView userName;
         TextView gender;
         TextView locate;
-        TextView test;
 
         public ViewHolder(View view){
             super(view);
-            test=view.findViewById(R.id.tv_video_test);
+            //test=view.findViewById(R.id.tv_video_test);
         }
     }
 
@@ -50,7 +49,7 @@ public class videoAdp extends RecyclerView.Adapter<videoAdp.ViewHolder>{
 
     public void onBindViewHolder(@NonNull videoAdp.ViewHolder holder, int position) {
         videoItem p=list.get(position);
-        holder.test.setText(p.getTest());
+        //holder.test.setText(p.getTest());
     }
 
     @Override

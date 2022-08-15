@@ -61,7 +61,14 @@ public class ShipingFragment extends Fragment {
         videoList_rv.setLayoutManager(lm);
         videoAdp adp=new videoAdp(video_list);
         videoList_rv.setAdapter(adp);
-        video_list.add(new videoItem("wdubqudbuwnd"));
+        video_list.add(new videoItem());
+        video_list.add(new videoItem());
+        video_list.add(new videoItem());
+        video_list.add(new videoItem());
+        video_list.add(new videoItem());
+        video_list.add(new videoItem());
+        video_list.add(new videoItem());
+        video_list.add(new videoItem());
 
         adp.notifyItemChanged(adp.getItemCount());
     }
