@@ -12,40 +12,47 @@
         <import type="android.view.View"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".personalInfoActivity.PersonalInfo">
+        tools:context=".personalInfoActivity.PersonalInfo"
+        android:orientation="vertical"
+        tools:ignore="RtlHardcoded,ContentDescription,SpUsage">
 
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_PI_usericon"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginLeft="24dp"
-            app:cardCornerRadius="45dp"
-            app:cardElevation="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:imageUrl="@{PIVM.userIcon}"
-                app:srcCompat="@drawable/ic_account_circle" />
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/tv_PI_username"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="17dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            android:text="@{PIVM.userName}"
-            android:textSize="40dp"
-            app:layout_constraintLeft_toRightOf="@id/cv_PI_usericon"
-            app:layout_constraintTop_toTopOf="@id/cv_PI_usericon" />
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_PI_usericon"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="24dp"
+                app:cardCornerRadius="45dp"
+                app:cardElevation="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:imageUrl="@{PIVM.userIcon}"
+                    app:srcCompat="@drawable/ic_account_circle" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_PI_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:text="@{PIVM.userName}"
+                android:textSize="40dp"
+                app:layout_constraintLeft_toRightOf="@id/cv_PI_usericon"
+                app:layout_constraintTop_toTopOf="@id/cv_PI_usericon" />
             <TextView
                 android:id="@+id/iv_PI_gender"
                 android:layout_marginLeft="8dp"
@@ -58,33 +65,32 @@
                 android:text="@{PIVM.usergender}"
                 android:textSize="20dp"/>
 
-        <TextView
-            android:id="@+id/tv_PI_country_city"
-            android:text="@{PIVM.userLocate}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textSize="16dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_PI_username"
-            app:layout_constraintStart_toEndOf="@+id/iv_PI_gender" />
+            <TextView
+                android:id="@+id/tv_PI_country_city"
+                android:text="@{PIVM.userLocate}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textSize="16dp"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_PI_username"
+                app:layout_constraintStart_toEndOf="@+id/iv_PI_gender" />
 
-        <TextView
-            android:id="@+id/tv_PI_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="17dp"
-            android:layout_marginTop="10dp"
-            android:text="@{PIVM.userDesc}"
-            android:textSize="20dp"
-            app:layout_constraintLeft_toRightOf="@id/cv_PI_usericon"
-            app:layout_constraintBottom_toBottomOf="@+id/cv_PI_usericon" />
-
+            <TextView
+                android:id="@+id/tv_PI_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="10dp"
+                android:text="@{PIVM.userDesc}"
+                android:textSize="20dp"
+                app:layout_constraintLeft_toRightOf="@id/cv_PI_usericon"
+                app:layout_constraintBottom_toBottomOf="@+id/cv_PI_usericon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/cv_PI_usericon"
+            android:layout_height="match_parent"
             android:layout_marginTop="7dp">
 
             <View
@@ -94,7 +100,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="8"
                 android:orientation="vertical">
 
@@ -102,17 +108,17 @@
                     android:id="@+id/tab_title"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_centerInParent="true"
                     app:tabIndicatorColor="@color/black"
                     app:tabIndicatorHeight="0dp"
                     app:tabSelectedTextColor="@color/black"
                     app:tabRippleColor="@android:color/transparent"
-                    app:tabTextColor="@color/grey" />
+                    app:tabTextColor="@color/grey"
+                    />
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/vp_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <View
@@ -121,5 +127,7 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+
 </layout>
