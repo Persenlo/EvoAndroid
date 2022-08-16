@@ -1,5 +1,6 @@
 package com.qxy.evoandroid.personalInfoActivity.tabListFragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -17,8 +18,13 @@ import com.qxy.evoandroid.personalInfoActivity.PIViewModel;
 import com.qxy.evoandroid.personalInfoActivity.videoInfo.VideoAdp;
 import com.qxy.evoandroid.personalInfoActivity.videoInfo.VideoItem;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 
 public class ShipingFragment extends Fragment {
@@ -62,7 +68,20 @@ public class ShipingFragment extends Fragment {
                 v.setTitle(mem.getTitle());
                 v.setPlay_count(mem.getStatistics().getPlayCount());
                 v.setComment_count(mem.getStatistics().getCommentCount());
-                v.setTime(mem.getCreateTime());
+                //把时间戳换为日期
+                //怎么这么困难呢orz
+                //Unix时间戳要乘1000，难绷
+                try {
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+                    long l= Long.parseLong(mem.getCreateTime());
+                    l*=1000;
+                    Date date=new Date(l);
+                    v.setTime(format.format(date));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+//                v.setTime(mem.getCreateTime());
                 //v.setOn_top(mem.isIsTop());
                 if(mem.isIsTop()) video_list.add(0,v);
                 else video_list.add(v);
