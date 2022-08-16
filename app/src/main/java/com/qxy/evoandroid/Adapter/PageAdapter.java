@@ -6,9 +6,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.qxy.evoandroid.personalInfoActivity.TabListFragments.FensiFragment;
-import com.qxy.evoandroid.personalInfoActivity.TabListFragments.GuanzhuFragment;
-import com.qxy.evoandroid.personalInfoActivity.TabListFragments.ShipingFragment;
+import com.qxy.evoandroid.personalInfoActivity.tabListFragments.FensiFragment;
+import com.qxy.evoandroid.personalInfoActivity.tabListFragments.GuanzhuFragment;
+import com.qxy.evoandroid.personalInfoActivity.tabListFragments.ShipingFragment;
 
 import java.util.ArrayList;
 

@@ -3,10 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
         <variable
-            name="VMGuanzhuItem"
-            type="com.qxy.evoandroid.personalInfoActivity.piRecycleView.GuanzhuP" />
+            name="VMFensiItem"
+            type="com.qxy.evoandroid.personalInfoActivity.piRecycleView.FensiP" />
+
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +16,7 @@
         tools:ignore="RtlHardcoded,SpUsage">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_gz_usericon"
+            android:id="@+id/cv_fs_usericon"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:cardCornerRadius="25dp"
@@ -23,46 +25,47 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <ImageView
-                android:id="@+id/iv_gz_icon"
+                android:id="@+id/iv_fs_icon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:imageUrl="@{VMGuanzhuItem.avatar}"
                 app:srcCompat="@drawable/ic_account_circle"
+                app:imageUrl="@{VMFensiItem.avatar}"
+
                 tools:ignore="ContentDescription" />
         </androidx.cardview.widget.CardView>
         <TextView
-            android:id="@+id/tv_gz_username"
+            android:id="@+id/tv_fs_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:text="@{VMGuanzhuItem.nickName}"
-            app:layout_constraintLeft_toRightOf="@id/cv_gz_usericon"
-            app:layout_constraintTop_toTopOf="@id/cv_gz_usericon"
+            android:text="@{VMFensiItem.nickName}"
+            app:layout_constraintLeft_toRightOf="@id/cv_fs_usericon"
+            app:layout_constraintTop_toTopOf="@id/cv_fs_usericon"
             />
         <TextView
-            android:id="@+id/iv_gz_gender"
-            android:layout_marginLeft="3dp"
-            android:layout_marginBottom="8dp"
-            android:text="@{VMGuanzhuItem.gender}"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_gz_username"
-            app:layout_constraintStart_toEndOf="@id/tv_gz_username"
+            android:id="@+id/iv_fs_gender"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_fs_username"
+            app:layout_constraintStart_toEndOf="@id/tv_fs_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{VMFensiItem.gender}"
             android:textSize="10dp"
             />
         <TextView
-            android:id="@+id/tv_gz_locate"
+            android:id="@+id/tv_fs_locate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="2dp"
-            android:text="@{VMGuanzhuItem.locate}"
+            android:text="@{VMFensiItem.locate}"
             android:textSize="10dp"
-            app:layout_constraintLeft_toRightOf="@id/cv_gz_usericon"
-            app:layout_constraintBottom_toBottomOf="@+id/cv_gz_usericon" />
+            app:layout_constraintLeft_toRightOf="@id/cv_fs_usericon"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_fs_usericon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
