@@ -1,7 +1,5 @@
 package com.qxy.evoandroid.Adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;

@@ -4,13 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.qxy.evoandroid.BaseActivity;
 import com.qxy.evoandroid.R;
 import com.qxy.evoandroid.databinding.ActivityHallBinding;
 import com.qxy.evoandroid.douyinapi.TokenUtil;
+import com.qxy.evoandroid.list.ListActivity;
+import com.qxy.evoandroid.personalInfoActivity.PersonalInfo;
 import com.qxy.evoandroid.userLogin.LoginViewModel;
+
+import java.util.Objects;
 
 /**
  * 大厅界面，用于做其它功能的入口
@@ -31,6 +37,21 @@ public class HallActivity extends BaseActivity {
         setContentView(R.layout.activity_hall);
 
         initView();
+
+        //排行榜按钮
+        Objects.requireNonNull(binding.cvHallRank).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(HallActivity.this, ListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //个人信息按钮
+        binding.cvHallMine.setOnClickListener(view -> {
+            Intent intent=new Intent(HallActivity.this, PersonalInfo.class);
+            startActivity(intent);
+        });
     }
 
 

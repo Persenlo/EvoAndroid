@@ -95,12 +95,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="@string/rank_rank_name"
+                    android:text="@string/rank_name"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_hall_mine"
