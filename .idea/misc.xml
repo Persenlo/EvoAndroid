@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/qxy/EvoAndroid-origin/app/src/main/res/drawable/shape_video.xml" value="0.2005" />
+        <entry key="..\:/Android/qxy/EvoAndroid-origin/app/src/main/res/drawable/video_on_top.xml" value="0.2005" />
+        <entry key="..\:/Android/qxy/EvoAndroid-origin/app/src/main/res/layout/activity_personal_info.xml" value="0.4033613316075515" />
+        <entry key="..\:/Android/qxy/EvoAndroid-origin/app/src/main/res/layout/adapter_list_guanzhu.xml" value="0.24322916666666666" />
+        <entry key="..\:/Android/qxy/EvoAndroid-origin/app/src/main/res/layout/item_list_follow.xml" value="0.24322916666666666" />
+        <entry key="..\:/Android/qxy/EvoAndroid-origin/app/src/main/res/layout/item_list_guanzhu.xml" value="0.10052083333333334" />
+        <entry key="..\:/Android/qxy/EvoAndroid-origin/app/src/main/res/layout/item_list_video.xml" value="0.4033613316075515" />
         <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/drawable/iv_video_cover_default.xml" value="0.2535" />
         <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/drawable/video_on_top.xml" value="0.254" />
         <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/activity_hall.xml" value="0.26145833333333335" />

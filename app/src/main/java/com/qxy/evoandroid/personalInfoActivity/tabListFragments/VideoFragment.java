@@ -12,28 +12,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.qxy.evoandroid.databinding.FragmentShipingBinding;
+import com.qxy.evoandroid.databinding.FragmentVideoBinding;
 import com.qxy.evoandroid.model.VideosInfo;
 import com.qxy.evoandroid.personalInfoActivity.PIViewModel;
-import com.qxy.evoandroid.personalInfoActivity.videoInfo.VideoAdp;
+import com.qxy.evoandroid.personalInfoActivity.videoInfo.VideoAdapter;
 import com.qxy.evoandroid.personalInfoActivity.videoInfo.VideoItem;
 
 import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.SimpleFormatter;
 
 
-public class ShipingFragment extends Fragment {
+public class VideoFragment extends Fragment {
 
     private List<VideoItem> video_list;
-    private FragmentShipingBinding binding;
+    private FragmentVideoBinding binding;
     private PIViewModel viewModel;
 
-    public ShipingFragment() {}
+    public VideoFragment() {}
 
 
     @Override
@@ -44,7 +41,7 @@ public class ShipingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding= FragmentShipingBinding.inflate(inflater);
+        binding= FragmentVideoBinding.inflate(inflater);
         return binding.getRoot();
     }
 
@@ -58,7 +55,7 @@ public class ShipingFragment extends Fragment {
         StaggeredGridLayoutManager lm=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
 
         binding.rvVideoList.setLayoutManager(lm);
-        VideoAdp adp=new VideoAdp(getContext(),video_list);
+        VideoAdapter adp=new VideoAdapter(getContext(),video_list);
         binding.rvVideoList.setAdapter(adp);
 
         viewModel.getVideoList().observe(getViewLifecycleOwner(),list->{
@@ -69,8 +66,6 @@ public class ShipingFragment extends Fragment {
                 v.setPlay_count(mem.getStatistics().getPlayCount());
                 v.setComment_count(mem.getStatistics().getCommentCount());
                 //把时间戳换为日期
-                //怎么这么困难呢orz
-                //Unix时间戳要乘1000，难绷
                 try {
                     @SuppressLint("SimpleDateFormat") SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
                     long l= Long.parseLong(mem.getCreateTime());
@@ -82,7 +77,7 @@ public class ShipingFragment extends Fragment {
                 }
 
 //                v.setTime(mem.getCreateTime());
-                //v.setOn_top(mem.isIsTop());
+//                v.setOn_top(mem.isIsTop());
                 if(mem.isIsTop()) video_list.add(0,v);
                 else video_list.add(v);
             }

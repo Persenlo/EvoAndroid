@@ -6,7 +6,7 @@
     <data>
         <variable
             name="VMGuanzhuItem"
-            type="com.qxy.evoandroid.personalInfoActivity.piRecycleView.GuanzhuP" />
+            type="com.qxy.evoandroid.personalInfoActivity.piRecycleView.FollowP" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

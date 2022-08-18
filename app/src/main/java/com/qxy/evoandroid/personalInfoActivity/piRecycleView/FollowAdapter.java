@@ -8,46 +8,44 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qxy.evoandroid.R;
-import com.qxy.evoandroid.databinding.AdapterListFensiBinding;
+import com.qxy.evoandroid.databinding.ItemListFollowBinding;
 
 import java.util.List;
 
+public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.ViewHolder> {
 
-public class FensiAdp extends RecyclerView.Adapter<FensiAdp.ViewHolder> {
-
-    private final List<FensiP> list;
+    private final List<FollowP> list;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
+        ItemListFollowBinding binding;
 
-        AdapterListFensiBinding binding;
-
-        public ViewHolder(AdapterListFensiBinding binding){
+        public ViewHolder(ItemListFollowBinding binding){
             super(binding.getRoot());
             this.binding=binding;
         }
     }
 
-    public FensiAdp(List<FensiP> list){
+    public FollowAdapter(List<FollowP> list){
         this.list=list;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        AdapterListFensiBinding binding=DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.adapter_list_fensi,parent,false);
+        ItemListFollowBinding binding= DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.item_list_follow,parent,false);
         return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FensiAdp.ViewHolder holder, int position) {
-        FensiP p=list.get(position);
-        holder.binding.setVMFensiItem(p);
+    public void onBindViewHolder(@NonNull FollowAdapter.ViewHolder holder, int position) {
+        FollowP p=list.get(position);
+        holder.binding.setVMGuanzhuItem(p);
         holder.binding.executePendingBindings();
 
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+            return list.size();
     }
 }

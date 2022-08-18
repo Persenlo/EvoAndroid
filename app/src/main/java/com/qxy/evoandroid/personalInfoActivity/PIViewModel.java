@@ -69,8 +69,9 @@ public class PIViewModel extends AndroidViewModel {
         RetrofitUtil.enqueue(userInfo, new ResponseCallback<>() {
             @Override
             public void onSuccess(UserInfo userInfo) {
+                Log.d("description->userInfo",userInfo.getData().getDescription());
                 if (userInfo.getData().getErrorCode() == 0) {
-                    //将信息绘制
+                    //设置个人信息
                     userName.setValue(userInfo.getData().getNickname());
                     userIcon.setValue(userInfo.getData().getAvatarLarger());
                     userLocate.setValue(userInfo.getData().getCountry()+"-"+userInfo.getData().getCity());
@@ -86,6 +87,7 @@ public class PIViewModel extends AndroidViewModel {
 
             }
         });
+        //同步加载粉丝、关注、视频列表数据
         getFansList(userToken,userOpenId);
         getFollowList(userToken,userOpenId);
         getVideoList(userToken,userOpenId);
@@ -102,6 +104,7 @@ public class PIViewModel extends AndroidViewModel {
         RetrofitUtil.enqueue(getFanInfo, new ResponseCallback<FansInfo>() {
             @Override
             public void onSuccess(FansInfo fansInfo) {
+                Log.d("description->fansInfo",fansInfo.getData().getDescription());
                 if(fansInfo.getData().getErrorCode() == 0){
                     //设置是否有下一页
                     fanHasMore.setValue(fansInfo.getData().isHasMore());
@@ -124,7 +127,7 @@ public class PIViewModel extends AndroidViewModel {
             }
         });
     }
-    //获取粉丝列表
+    //获取关注列表
     void getFollowList(String userToken,String userOpenId){
         //没有下一页时取消请求
         if(!Boolean.TRUE.equals(followHasMore.getValue())){
@@ -157,7 +160,7 @@ public class PIViewModel extends AndroidViewModel {
             }
         });
     }
-    //获取粉丝列表
+    //获取视频列表
     void getVideoList(String userToken,String userOpenId){
         //没有下一页时取消请求
         if(!Boolean.TRUE.equals(videoHasMore.getValue())){
@@ -235,71 +238,44 @@ public class PIViewModel extends AndroidViewModel {
         return fanCursor;
     }
 
-    public void setFanCursor(MutableLiveData<String> fanCursor) {
-        this.fanCursor = fanCursor;
-    }
 
     public MutableLiveData<Boolean> getFanHasMore() {
         return fanHasMore;
     }
 
-    public void setFanHasMore(MutableLiveData<Boolean> fanHasMore) {
-        this.fanHasMore = fanHasMore;
-    }
 
     public MutableLiveData<List<FansInfo.DataDTO.ListDTO>> getFanList() {
         return fanList;
     }
 
-    public void setFanList(MutableLiveData<List<FansInfo.DataDTO.ListDTO>> fanList) {
-        this.fanList = fanList;
-    }
 
     public MutableLiveData<String> getFollowCursor() {
         return followCursor;
     }
 
-    public void setFollowCursor(MutableLiveData<String> followCursor) {
-        this.followCursor = followCursor;
-    }
 
     public MutableLiveData<Boolean> getFollowHasMore() {
         return followHasMore;
     }
 
-    public void setFollowHasMore(MutableLiveData<Boolean> followHasMore) {
-        this.followHasMore = followHasMore;
-    }
 
     public MutableLiveData<List<FollowInfo.DataDTO.ListDTO>> getFollowList() {
         return followList;
     }
 
-    public void setFollowList(MutableLiveData<List<FollowInfo.DataDTO.ListDTO>> followList) {
-        this.followList = followList;
-    }
 
     public MutableLiveData<String> getVideoCursor() {
         return videoCursor;
     }
 
-    public void setVideoCursor(MutableLiveData<String> videoCursor) {
-        this.videoCursor = videoCursor;
-    }
 
     public MutableLiveData<Boolean> getVideoHasMore() {
         return videoHasMore;
     }
 
-    public void setVideoHasMore(MutableLiveData<Boolean> videoHasMore) {
-        this.videoHasMore = videoHasMore;
-    }
 
     public MutableLiveData<List<VideosInfo.DataDTO.ListDTO>> getVideoList() {
         return videoList;
     }
 
-    public void setVideoList(MutableLiveData<List<VideosInfo.DataDTO.ListDTO>> videoList) {
-        this.videoList = videoList;
-    }
 }

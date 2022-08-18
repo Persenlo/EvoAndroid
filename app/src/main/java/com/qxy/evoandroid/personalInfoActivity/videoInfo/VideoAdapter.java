@@ -5,21 +5,18 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qxy.evoandroid.R;
-import com.qxy.evoandroid.databinding.AdapterListVideoBinding;
+import com.qxy.evoandroid.databinding.ItemListVideoBinding;
 
 
 import java.util.List;
 
-public class VideoAdp extends RecyclerView.Adapter<VideoAdp.ViewHolder>{
+public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder>{
 
     private final List<VideoItem> list;
     private Context context;
@@ -27,14 +24,15 @@ public class VideoAdp extends RecyclerView.Adapter<VideoAdp.ViewHolder>{
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
-        AdapterListVideoBinding binding;
+        ItemListVideoBinding binding;
 
-        public ViewHolder(AdapterListVideoBinding binding){
+        public ViewHolder(ItemListVideoBinding binding){
             super(binding.getRoot());
             this.binding=binding;
         }
     }
-    public VideoAdp(Context context, List<VideoItem> list){
+
+    public VideoAdapter(Context context, List<VideoItem> list){
         this.context=context;
         this.list=list;
         listener= view -> {
@@ -45,13 +43,13 @@ public class VideoAdp extends RecyclerView.Adapter<VideoAdp.ViewHolder>{
 
     @NonNull
     @Override
-    public VideoAdp.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        AdapterListVideoBinding binding= DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.adapter_list_video,parent,false);
+    public VideoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemListVideoBinding binding= DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.item_list_video,parent,false);
         return new ViewHolder(binding);
     }
 
 
-    public void onBindViewHolder(@NonNull VideoAdp.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull VideoAdapter.ViewHolder holder, int position) {
         VideoItem p=list.get(position);
         holder.binding.getRoot().setOnClickListener(listener);
         holder.binding.setVMVideoItem(p);

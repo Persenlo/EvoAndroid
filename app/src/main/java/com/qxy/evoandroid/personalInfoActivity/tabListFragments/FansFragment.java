@@ -12,22 +12,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.qxy.evoandroid.databinding.FragmentFensiBinding;
+import com.qxy.evoandroid.databinding.FragmentFansBinding;
 import com.qxy.evoandroid.model.FansInfo;
 import com.qxy.evoandroid.personalInfoActivity.PIViewModel;
-import com.qxy.evoandroid.personalInfoActivity.piRecycleView.FensiAdp;
-import com.qxy.evoandroid.personalInfoActivity.piRecycleView.FensiP;
+import com.qxy.evoandroid.personalInfoActivity.piRecycleView.FansAdapter;
+import com.qxy.evoandroid.personalInfoActivity.piRecycleView.FansP;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FensiFragment extends Fragment {
+public class FansFragment extends Fragment {
 
-    private List<FensiP> fensi_list;
+    private List<FansP> fensi_list;
     private PIViewModel viewModel;
-    private FragmentFensiBinding binding;
+    private FragmentFansBinding binding;
 
-    public FensiFragment() {
+    public FansFragment() {
     }
 
     @Override
@@ -44,12 +44,12 @@ public class FensiFragment extends Fragment {
         fensi_list=new ArrayList<>();
 
         binding.rvFensiList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        FensiAdp adp=new FensiAdp(fensi_list);
+        FansAdapter adp=new FansAdapter(fensi_list);
         binding.rvFensiList.setAdapter(adp);
         //observe VM中的关注list以实现UI绘制
         viewModel.getFanList().observe(getViewLifecycleOwner(),list -> {
             for(FansInfo.DataDTO.ListDTO mem : list){
-                FensiP p=new FensiP();
+                FansP p=new FansP();
                 p.setAvatar(mem.getAvatar());
                 p.setLocate(mem.getCountry()+"-"+mem.getProvince()+"-"+mem.getCity());
                 p.setNickName(mem.getNickname());
@@ -59,14 +59,13 @@ public class FensiFragment extends Fragment {
             adp.notifyItemChanged(adp.getItemCount());
         });
         adp.notifyItemChanged(adp.getItemCount());
-        //
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding=FragmentFensiBinding.inflate(inflater);
+        binding=FragmentFansBinding.inflate(inflater);
         return binding.getRoot();
     }
 }

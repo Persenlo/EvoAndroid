@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".personalInfoActivity.tabListFragments.FensiFragment">
+        tools:context=".personalInfoActivity.tabListFragments.FansFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_fensiList"

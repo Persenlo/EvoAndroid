@@ -16,6 +16,8 @@ import com.qxy.evoandroid.list.ListActivity;
 import com.qxy.evoandroid.personalInfoActivity.PersonalInfo;
 import com.qxy.evoandroid.userLogin.LoginViewModel;
 
+import java.util.Objects;
+
 /**
  * 大厅界面，用于做其它功能的入口
  * @author Persenlo
@@ -37,7 +39,7 @@ public class HallActivity extends BaseActivity {
         initView();
 
         //排行榜按钮
-        binding.cvHallRank.setOnClickListener(new View.OnClickListener() {
+        Objects.requireNonNull(binding.cvHallRank).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(HallActivity.this, ListActivity.class);
@@ -46,15 +48,9 @@ public class HallActivity extends BaseActivity {
         });
 
         //个人信息按钮
-        binding.cvHallMine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent=new Intent(HallActivity.this, PersonalInfo.class);
-                intent.putExtra("userToken",userToken);
-                intent.putExtra("userOpenID",userOpenId);
-                startActivity(intent);
-            }
+        binding.cvHallMine.setOnClickListener(view -> {
+            Intent intent=new Intent(HallActivity.this, PersonalInfo.class);
+            startActivity(intent);
         });
     }
 

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -54,7 +55,7 @@ public class ListViewModel extends AndroidViewModel {
             RetrofitUtil.enqueue(videoRank, new ResponseCallback<>() {
                 @Override
                 public void onSuccess(VideoRank videoRank) {
-                    System.out.println(videoRank.getData().getDescription());
+                    Log.d("description->video：",videoRank.getData().getDescription());
                     if (videoRank.getData().getErrorCode().equals("0")) {
                         //本地缓存
                         cacheRepository.SaveCache(videoRank, version, type);
@@ -86,6 +87,7 @@ public class ListViewModel extends AndroidViewModel {
             RetrofitUtil.enqueue(rankVersion, new ResponseCallback<>() {
                 @Override
                 public void onSuccess(RankVersion rankVersion) {
+                    Log.d("description->rank：",rankVersion.getData().getDescription());
                     if (rankVersion.getData().getErrorCode().equals("0")) {
                         cacheRepository.updateSpinner(rankVersion);//保存或者更新Spinner数据
                         versionLiveData.setValue(rankVersion.getData());

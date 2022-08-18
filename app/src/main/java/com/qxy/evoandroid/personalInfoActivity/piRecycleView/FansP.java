@@ -2,15 +2,18 @@ package com.qxy.evoandroid.personalInfoActivity.piRecycleView;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.databinding.library.baseAdapters.BR;
 
-public class GuanzhuP extends BaseObservable {
+import com.qxy.evoandroid.BR;
+
+import java.util.List;
+
+public class FansP extends BaseObservable {
     private String nickName;
     private String avatar;
     private String locate;
     private String gender;
 
-    public GuanzhuP(){}
+    public FansP(){}
 
     @Bindable
     public String getNickName() {

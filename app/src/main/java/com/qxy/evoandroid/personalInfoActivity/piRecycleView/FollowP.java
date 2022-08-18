@@ -2,18 +2,15 @@ package com.qxy.evoandroid.personalInfoActivity.piRecycleView;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.library.baseAdapters.BR;
 
-import com.qxy.evoandroid.BR;
-
-import java.util.List;
-
-public class FensiP extends BaseObservable {
+public class FollowP extends BaseObservable {
     private String nickName;
     private String avatar;
     private String locate;
     private String gender;
 
-    public FensiP(){}
+    public FollowP(){}
 
     @Bindable
     public String getNickName() {
