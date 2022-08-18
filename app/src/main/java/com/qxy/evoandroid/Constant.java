@@ -6,8 +6,8 @@ package com.qxy.evoandroid;
 public class Constant {
 
     //密钥
-    static final public String CLIENT_KEY = "awmwapr1jgsdnhid";
-    static final public String CLIENT_SECRET = "93b8881283caf6bf3d3721022c13481f";
+    static final public String CLIENT_KEY = "awibl7nzc7dgmgqw";
+    static final public String CLIENT_SECRET = "1610e7b6800cd97b169f681758d704ba";
     static final public String GRANT_TYPE = "authorization_code";
     static final public String CLIENT_TYPE = "client_credential";
 

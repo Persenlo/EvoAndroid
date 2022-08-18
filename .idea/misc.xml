@@ -3,13 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/activity_hall.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/activity_main.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/activity_personal_info.xml" value="0.26621847886098404" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/activity_start.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/adapter_list_guanzhu.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/fragment_fensi.xml" value="0.3416666666666667" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/fragment_guanzhu.xml" value="0.3416666666666667" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/fragment_shiping.xml" value="0.32708333333333334" />
+        <entry key="..\:/Users/Dath Chou/Desktop/EvoAndroid/app/src/main/res/layout/fragment_tab_list.xml" value="0.2421875" />
         <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/drawable/board_round_alpha.xml" value="0.203" />
         <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/drawable/ic_account_circle.xml" value="0.203" />
+        <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/drawable/ic_comment.xml" value="0.2035" />
+        <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/drawable/ic_download.xml" value="0.2035" />
         <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/drawable/ic_launcher_background.xml" value="0.203" />
+        <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/drawable/ic_like.xml" value="0.2035" />
+        <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/drawable/ic_play.xml" value="0.2035" />
+        <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/drawable/ic_share.xml" value="0.2035" />
         <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/layout/activity_dou_yin_entry.xml" value="0.3500905797101449" />
         <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/layout/activity_hall.xml" value="0.33" />
         <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/layout/activity_main.xml" value="0.3500905797101449" />
         <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/layout/activity_start.xml" value="0.3500905797101449" />
+        <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/layout/activity_video_player.xml" value="0.3500905797101449" />
         <entry key="..\:/Users/Persenlo/Desktop/Work/EvoAndroid/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.203" />
       </map>
     </option>
