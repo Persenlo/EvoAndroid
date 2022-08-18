@@ -22,13 +22,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
 
             <ImageView
                 android:id="@+id/iv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -37,14 +38,14 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_PI_usericon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="24dp"
                 app:cardCornerRadius="45dp"
                 app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_back"
                 app:layout_constraintStart_toEndOf="@id/iv_back"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="@+id/iv_back">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -61,7 +62,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@{PIVM.userName}"
                 android:textColor="@color/black"
-                android:textSize="30dp"
+                android:textSize="24sp"
                 app:layout_constraintLeft_toRightOf="@id/cv_PI_usericon"
                 app:layout_constraintTop_toTopOf="@id/cv_PI_usericon" />
 
@@ -70,13 +71,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="5dp"
                 android:text="@{PIVM.usergender}"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_PI_username"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_PI_description"
                 app:layout_constraintStart_toEndOf="@id/tv_PI_username"
-                app:layout_constraintTop_toTopOf="@id/tv_PI_username"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="@+id/tv_PI_username" />
 
             <TextView
                 android:id="@+id/tv_PI_country_city"
@@ -84,8 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="@{PIVM.userLocate}"
-                android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_PI_username"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_PI_gender"
                 app:layout_constraintStart_toEndOf="@+id/iv_PI_gender"
                 app:layout_constraintTop_toTopOf="@+id/tv_PI_username" />
 
