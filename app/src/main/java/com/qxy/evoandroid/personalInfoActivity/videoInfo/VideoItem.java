@@ -16,6 +16,7 @@ public class VideoItem extends BaseObservable {
     private String comment_count;
     private String time;
     private String cover;
+    private String itemId;
 
     @Bindable
     public String getCover() {
@@ -71,7 +72,14 @@ public class VideoItem extends BaseObservable {
         this.time = time;
     }
 
+    @Bindable
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
     public VideoItem(){}
-
-
 }

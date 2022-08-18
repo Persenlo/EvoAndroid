@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class VideoFragment extends Fragment {
                 v.setTitle(mem.getTitle());
                 v.setPlay_count(mem.getStatistics().getPlayCount());
                 v.setComment_count(mem.getStatistics().getCommentCount());
+                v.setItemId(mem.getItemId());//设置VideoId
                 //把时间戳换为日期
                 try {
                     @SuppressLint("SimpleDateFormat") SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
