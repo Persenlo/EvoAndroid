@@ -114,7 +114,7 @@ public class PIViewModel extends AndroidViewModel {
                     }
                     //设置List
                     if (fansInfo.getData().getList() != null){
-                        tempFanList.addAll(fansInfo.getData().getList());
+                        tempFanList= fansInfo.getData().getList();
                         fanList.setValue(tempFanList);
                     }
                 }
@@ -146,7 +146,7 @@ public class PIViewModel extends AndroidViewModel {
                     }
                     //设置List
                     if (followInfo.getData().getList() != null){
-                        tempFollowList.addAll(followInfo.getData().getList());
+                        tempFollowList = followInfo.getData().getList();
                         followList.setValue(tempFollowList);
                         //然后在外面把followList.value拿出来就行了
                     }
@@ -180,7 +180,7 @@ public class PIViewModel extends AndroidViewModel {
                     }
                     //设置List
                     if (videoInfo.getData().getList() != null){
-                        tempVideoList.addAll(videoInfo.getData().getList());
+                        tempVideoList = videoInfo.getData().getList();
                         videoList.setValue(tempVideoList);
                     }
                 }
