@@ -2,16 +2,19 @@ package com.qxy.evoandroid.personalInfoActivity.tabListFragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.qxy.evoandroid.databinding.FragmentFollowBinding;
+import com.qxy.evoandroid.douyinapi.TokenUtil;
 import com.qxy.evoandroid.model.FollowInfo;
 import com.qxy.evoandroid.personalInfoActivity.PIViewModel;
 import com.qxy.evoandroid.personalInfoActivity.piRecycleView.FollowAdapter;
@@ -26,6 +29,12 @@ public class FollowFragment extends Fragment {
     private FragmentFollowBinding binding;
     private PIViewModel viewModel;
 
+    private String userToken;
+    private String openId;
+    private TokenUtil tokenUtil;
+
+    private boolean isHasMore = true;
+
     public FollowFragment() {}
 
     @Override
@@ -37,9 +46,18 @@ public class FollowFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        //获取Token
+        tokenUtil = new TokenUtil(getContext());
+        userToken = tokenUtil.getToken();
+        openId = tokenUtil.getOpenId();
+
         viewModel=new ViewModelProvider(requireActivity()).get(PIViewModel.class);
+
         guanzhu_list=new ArrayList<>();
-        binding.rvGuanzhuList.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //配置RV
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        binding.rvGuanzhuList.setLayoutManager(layoutManager);
         FollowAdapter adp=new FollowAdapter(guanzhu_list);
         binding.rvGuanzhuList.setAdapter(adp);
         //observe VM中的关注list以实现UI绘制
@@ -53,8 +71,36 @@ public class FollowFragment extends Fragment {
                 guanzhu_list.add(p);
             }
             adp.notifyItemChanged(adp.getItemCount());
+
+            //判断是否还有更多
+            if (list.size() != 0 && isHasMore){
+                //还有更多时时隐藏footer
+                binding.tvFollowFoot.setVisibility(View.GONE);
+            }else {
+                //没有更多时时显示footer
+                binding.tvFollowFoot.setVisibility(View.VISIBLE);
+            }
+
         });
         adp.notifyItemChanged(adp.getItemCount());
+
+        //添加滑动监听,实现加载更多
+        binding.rvGuanzhuList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy < 0)return;
+                if (layoutManager.findLastVisibleItemPosition()==adp.getItemCount()-1) {
+                    //判断是否还有更多
+                    if (viewModel.getFollowList(userToken,openId)){
+                        isHasMore = true;
+                    }else {
+                        binding.tvFollowFoot.setVisibility(View.VISIBLE);
+                        isHasMore = false;
+                    }
+                }
+            }
+        });
     }
 
     @Override

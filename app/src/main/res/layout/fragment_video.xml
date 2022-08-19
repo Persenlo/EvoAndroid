@@ -9,14 +9,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".personalInfoActivity.tabListFragments.VideoFragment">
+        tools:context=".personalInfoActivity.tabListFragments.VideoFragment"
+        android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_videoList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         />
+
+        <TextView
+            android:id="@+id/tv_video_foot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="---已经到底了---" />
 
     </LinearLayout>
 </layout>

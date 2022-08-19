@@ -3,9 +3,12 @@ package com.qxy.evoandroid.personalInfoActivity.tabListFragments;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qxy.evoandroid.databinding.FragmentVideoBinding;
+import com.qxy.evoandroid.douyinapi.TokenUtil;
 import com.qxy.evoandroid.model.VideosInfo;
 import com.qxy.evoandroid.personalInfoActivity.PIViewModel;
 import com.qxy.evoandroid.personalInfoActivity.videoInfo.VideoAdapter;
@@ -30,6 +34,12 @@ public class VideoFragment extends Fragment {
     private List<VideoItem> video_list;
     private FragmentVideoBinding binding;
     private PIViewModel viewModel;
+
+    private String userToken;
+    private String openId;
+    private TokenUtil tokenUtil;
+
+    private boolean isHasMore = true;
 
     public VideoFragment() {}
 
@@ -51,9 +61,14 @@ public class VideoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewModel=new ViewModelProvider(requireActivity()).get(PIViewModel.class);
 
+        //获取Token
+        tokenUtil = new TokenUtil(getContext());
+        userToken = tokenUtil.getToken();
+        openId = tokenUtil.getOpenId();
+
         video_list=new ArrayList<>();
 
-        StaggeredGridLayoutManager lm=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        GridLayoutManager lm=new GridLayoutManager(getContext(),2);
 
         binding.rvVideoList.setLayoutManager(lm);
         VideoAdapter adp=new VideoAdapter(getContext(),video_list);
@@ -83,8 +98,34 @@ public class VideoFragment extends Fragment {
                 if(mem.isIsTop()) video_list.add(0,v);
                 else video_list.add(v);
             }
-           adp.notifyItemChanged(adp.getItemCount());
+            adp.notifyItemChanged(adp.getItemCount());
+
+            //判断是否还有更多
+            if (list.size() != 0 && isHasMore){
+                //还有更多时时隐藏footer
+                binding.tvVideoFoot.setVisibility(View.GONE);
+            }else {
+                //没有更多时时显示footer
+                binding.tvVideoFoot.setVisibility(View.VISIBLE);
+            }
         });
         adp.notifyItemChanged(adp.getItemCount());
+
+        //添加滑动监听,实现加载更多
+        binding.rvVideoList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy < 0)return;
+                if (lm.findLastVisibleItemPosition()==adp.getItemCount()-1) {
+                    if (viewModel.getVideoList(userToken,openId)){
+                        isHasMore = true;
+                    }else {
+                        binding.tvVideoFoot.setVisibility(View.VISIBLE);
+                        isHasMore = false;
+                    }
+                }
+            }
+        });
     }
 }

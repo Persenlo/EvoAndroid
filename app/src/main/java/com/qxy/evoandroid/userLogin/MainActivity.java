@@ -1,6 +1,7 @@
 package com.qxy.evoandroid.userLogin;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -39,6 +40,8 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         initView();
         initListener();
+
+        setDarkStatusBar();
     }
 
 

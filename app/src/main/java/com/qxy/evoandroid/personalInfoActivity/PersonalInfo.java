@@ -8,7 +8,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.StatusBarManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 import com.qxy.evoandroid.BaseActivity;
@@ -35,6 +38,10 @@ public class PersonalInfo extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info);
+
+        setDarkStatusBar();
+
+
         list.add("粉丝");
         list.add("关注");
         list.add("视频列表");

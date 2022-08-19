@@ -95,10 +95,10 @@ public class PIViewModel extends AndroidViewModel {
     }
 
     //获取粉丝列表
-    void getFansList(String userToken,String userOpenId){
+    public boolean getFansList(String userToken,String userOpenId){
         //没有下一页时取消请求
         if(!Boolean.TRUE.equals(fanHasMore.getValue())){
-            return;
+            return false;
         }
         Call<FansInfo> getFanInfo = apiService.getFansInfo(userToken,userOpenId,fanCursor.getValue(),count);
         RetrofitUtil.enqueue(getFanInfo, new ResponseCallback<FansInfo>() {
@@ -117,7 +117,6 @@ public class PIViewModel extends AndroidViewModel {
                         tempFanList.addAll(fansInfo.getData().getList());
                         fanList.setValue(tempFanList);
                     }
-
                 }
             }
 
@@ -126,12 +125,13 @@ public class PIViewModel extends AndroidViewModel {
                 Log.e("PIViewModel","FanGetErr"+t);
             }
         });
+        return true;
     }
     //获取关注列表
-    void getFollowList(String userToken,String userOpenId){
+    public boolean getFollowList(String userToken,String userOpenId){
         //没有下一页时取消请求
         if(!Boolean.TRUE.equals(followHasMore.getValue())){
-            return;
+            return false;
         }
         Call<FollowInfo> getFollowInfo = apiService.getFollowInfo(userToken,count,userOpenId,followCursor.getValue());
         RetrofitUtil.enqueue(getFollowInfo, new ResponseCallback<FollowInfo>() {
@@ -159,12 +159,13 @@ public class PIViewModel extends AndroidViewModel {
                 Log.e("PIViewModel","FollowGetErr"+t);
             }
         });
+        return true;
     }
     //获取视频列表
-    void getVideoList(String userToken,String userOpenId){
+    public boolean getVideoList(String userToken,String userOpenId){
         //没有下一页时取消请求
         if(!Boolean.TRUE.equals(videoHasMore.getValue())){
-            return;
+            return false;
         }
         Call<VideosInfo> getVideoInfo = apiService.getVideoInfo(userToken,userOpenId,videoCursor.getValue(),count);
         RetrofitUtil.enqueue(getVideoInfo, new ResponseCallback<VideosInfo>() {
@@ -190,6 +191,7 @@ public class PIViewModel extends AndroidViewModel {
                 Log.e("PIViewModel","VideoGetErr"+t);
             }
         });
+        return true;
     }
 
 

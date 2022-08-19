@@ -8,13 +8,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".personalInfoActivity.tabListFragments.FollowFragment">
+        tools:context=".personalInfoActivity.tabListFragments.FollowFragment"
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_guanzhuList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_follow_foot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="---已经到底了---" />
 
     </LinearLayout>
 </layout>
