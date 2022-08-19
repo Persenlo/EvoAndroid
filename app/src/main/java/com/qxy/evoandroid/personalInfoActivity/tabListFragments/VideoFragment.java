@@ -118,12 +118,18 @@ public class VideoFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
                 if (dy < 0)return;
                 if (lm.findLastVisibleItemPosition()==adp.getItemCount()-1) {
-                    if (viewModel.getVideoList(userToken,openId)){
-                        isHasMore = true;
-                    }else {
+                    if(video_list.size() > 30){
                         binding.tvVideoFoot.setVisibility(View.VISIBLE);
                         isHasMore = false;
+                    }else {
+                        if (viewModel.getVideoList(userToken,openId)){
+                            isHasMore = true;
+                        }else {
+                            binding.tvVideoFoot.setVisibility(View.VISIBLE);
+                            isHasMore = false;
+                        }
                     }
+
                 }
             }
         });
