@@ -74,6 +74,8 @@ public class FansFragment extends Fragment {
                 fensi_list.add(p);
             }
             adp.notifyItemChanged(adp.getItemCount());
+            //加载完毕，允许再次请求
+            stopRequest = false;
 
             //判断是否还有更多
             if (list.size() != 0 && isHasMore){
@@ -85,8 +87,7 @@ public class FansFragment extends Fragment {
             }
         });
         adp.notifyItemChanged(adp.getItemCount());
-        //加载完毕，允许再次请求
-        stopRequest = false;
+
 
         //添加滑动监听,实现加载更多
         binding.rvFensiList.addOnScrollListener(new RecyclerView.OnScrollListener() {
