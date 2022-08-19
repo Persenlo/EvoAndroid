@@ -35,6 +35,7 @@ public class FansFragment extends Fragment {
     private TokenUtil tokenUtil;
 
     private boolean isHasMore = true;
+    private boolean stopRequest = false;
 
     public FansFragment() {
     }
@@ -84,6 +85,8 @@ public class FansFragment extends Fragment {
             }
         });
         adp.notifyItemChanged(adp.getItemCount());
+        //加载完毕，允许再次请求
+        stopRequest = false;
 
         //添加滑动监听,实现加载更多
         binding.rvFensiList.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -93,11 +96,14 @@ public class FansFragment extends Fragment {
                 if (dy < 0)return;
                 if (layoutManager.findLastVisibleItemPosition()==adp.getItemCount()-1) {
                     //判断是否还有更多
-                    if (viewModel.getFansList(userToken,openId)){
-                        isHasMore = true;
-                    }else {
-                        binding.tvFansFoot.setVisibility(View.VISIBLE);
-                        isHasMore = false;
+                    if(!stopRequest){
+                        if (viewModel.getFansList(userToken,openId)){
+                            isHasMore = true;
+                            stopRequest = true;
+                        }else {
+                            binding.tvFansFoot.setVisibility(View.VISIBLE);
+                            isHasMore = false;
+                        }
                     }
                 }
             }

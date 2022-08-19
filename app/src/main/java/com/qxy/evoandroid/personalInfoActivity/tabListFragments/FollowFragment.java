@@ -34,6 +34,7 @@ public class FollowFragment extends Fragment {
     private TokenUtil tokenUtil;
 
     private boolean isHasMore = true;
+    private boolean stopRequest = false;
 
     public FollowFragment() {}
 
@@ -83,6 +84,8 @@ public class FollowFragment extends Fragment {
 
         });
         adp.notifyItemChanged(adp.getItemCount());
+        //加载完毕，允许再次请求
+        stopRequest = false;
 
         //添加滑动监听,实现加载更多
         binding.rvGuanzhuList.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -92,11 +95,14 @@ public class FollowFragment extends Fragment {
                 if (dy < 0)return;
                 if (layoutManager.findLastVisibleItemPosition()==adp.getItemCount()-1) {
                     //判断是否还有更多
-                    if (viewModel.getFollowList(userToken,openId)){
-                        isHasMore = true;
-                    }else {
-                        binding.tvFollowFoot.setVisibility(View.VISIBLE);
-                        isHasMore = false;
+                    if (!stopRequest){
+                        if (viewModel.getFollowList(userToken,openId)){
+                            isHasMore = true;
+                            stopRequest = true;
+                        }else {
+                            binding.tvFollowFoot.setVisibility(View.VISIBLE);
+                            isHasMore = false;
+                        }
                     }
                 }
             }

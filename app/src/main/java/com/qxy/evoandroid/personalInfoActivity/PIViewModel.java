@@ -108,10 +108,7 @@ public class PIViewModel extends AndroidViewModel {
                 if(fansInfo.getData().getErrorCode() == 0){
                     //设置是否有下一页
                     fanHasMore.setValue(fansInfo.getData().isHasMore());
-                    if(fanHasMore.getValue()){
-                        //有下一页，设置新cursor
-                        fanCursor.setValue(fansInfo.getData().getCursor());
-                    }
+                    fanCursor.setValue(fansInfo.getData().getCursor());
                     //设置List
                     if (fansInfo.getData().getList() != null){
                         tempFanList= fansInfo.getData().getList();
@@ -140,10 +137,7 @@ public class PIViewModel extends AndroidViewModel {
                 if (followInfo.getData().getErrorCode() == 0){
                     //设置是否有下一页
                     followHasMore.setValue(followInfo.getData().isHasMore());
-                    if(followHasMore.getValue()){
-                        //有下一页，设置新cursor
-                        followCursor.setValue(followInfo.getData().getCursor());
-                    }
+                    followCursor.setValue(followInfo.getData().getCursor());
                     //设置List
                     if (followInfo.getData().getList() != null){
                         tempFollowList = followInfo.getData().getList();
@@ -164,7 +158,7 @@ public class PIViewModel extends AndroidViewModel {
     //获取视频列表
     public boolean getVideoList(String userToken,String userOpenId){
         //没有下一页时取消请求
-        if(!Boolean.TRUE.equals(videoHasMore.getValue())){
+        if(Boolean.FALSE.equals(videoHasMore.getValue())){
             return false;
         }
         Call<VideosInfo> getVideoInfo = apiService.getVideoInfo(userToken,userOpenId,videoCursor.getValue(),count);
@@ -174,10 +168,7 @@ public class PIViewModel extends AndroidViewModel {
                 if (videoInfo.getData().getErrorCode() == 0){
                     //设置是否有下一页
                     videoHasMore.setValue(videoInfo.getData().isHasMore());
-                    if(videoHasMore.getValue()){
-                        //有下一页，设置新cursor
-                        videoCursor.setValue(videoInfo.getData().getCursor());
-                    }
+                    videoCursor.setValue(videoInfo.getData().getCursor());
                     //设置List
                     if (videoInfo.getData().getList() != null){
                         tempVideoList = videoInfo.getData().getList();

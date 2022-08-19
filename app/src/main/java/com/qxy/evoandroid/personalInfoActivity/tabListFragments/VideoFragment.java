@@ -40,6 +40,7 @@ public class VideoFragment extends Fragment {
     private TokenUtil tokenUtil;
 
     private boolean isHasMore = true;
+    private boolean stopRequest = false;
 
     public VideoFragment() {}
 
@@ -99,6 +100,8 @@ public class VideoFragment extends Fragment {
                 else video_list.add(v);
             }
             adp.notifyItemChanged(adp.getItemCount());
+            //加载完毕，允许再次请求
+            stopRequest = false;
 
             //判断是否还有更多
             if (list.size() != 0 && isHasMore){
@@ -118,12 +121,13 @@ public class VideoFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
                 if (dy < 0)return;
                 if (lm.findLastVisibleItemPosition()==adp.getItemCount()-1) {
-                    if(video_list.size() > 30){
+                    if(video_list.size() > 30 || stopRequest){
                         binding.tvVideoFoot.setVisibility(View.VISIBLE);
                         isHasMore = false;
                     }else {
                         if (viewModel.getVideoList(userToken,openId)){
                             isHasMore = true;
+                            stopRequest = true;
                         }else {
                             binding.tvVideoFoot.setVisibility(View.VISIBLE);
                             isHasMore = false;
