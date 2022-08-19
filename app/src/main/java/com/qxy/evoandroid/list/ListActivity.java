@@ -71,6 +71,8 @@ public class ListActivity extends BaseActivity {
         binding.setData(listViewModel);
         binding.setLifecycleOwner(this);
 
+        setDarkStatusBar();
+
         init();
 
         initToolbar();
