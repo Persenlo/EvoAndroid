@@ -22,6 +22,7 @@ import com.qxy.evoandroid.model.UserInfo;
 import com.qxy.evoandroid.model.VideoRank;
 import com.qxy.evoandroid.request.ApiService;
 import com.qxy.evoandroid.userLogin.MainActivity;
+import com.qxy.evoandroid.utils.DialogP;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,7 +57,45 @@ public class StartActivity extends BaseActivity {
 
         setDarkStatusBar();
 
-        init();
+        checkUserPermission();
+    }
+
+    private void checkUserPermission() {
+
+        SharedPreferences checkSP = getSharedPreferences("setting",0);
+        SharedPreferences.Editor checkSPEdit = checkSP.edit();
+
+        boolean isAllow = checkSP.getBoolean("allow_permission",false);
+
+        if(!isAllow){
+            //向用户申请弹窗
+            DialogP dialogP = new DialogP(this,DialogP.DIALOG_P_NORMAL);
+            dialogP.setMessage("使用此应用程序需要联网权限和存储权限")
+                    .setPosBtnText("同意")
+                    .setNegBtnText("拒绝")
+                    .setTitle("用户须知")
+                    .setOnButtonClickListener(new DialogP.onButtonClickListener() {
+                        @Override
+                        public void onPositiveButtonClick() {
+                            checkSPEdit.putBoolean("allow_permission",true);
+                            checkSPEdit.commit();
+                            dialogP.dismiss();
+                            init();
+                        }
+
+                        @Override
+                        public void onNegativeButtonClick() {
+                            checkSPEdit.putBoolean("allow_permission",false);
+                            checkSPEdit.commit();
+                            dialogP.dismiss();
+                            finish();
+                        }
+                    }).show();
+        }else {
+            //用户同意后开始初始化
+            init();
+        }
+
     }
 
     private void init(){
