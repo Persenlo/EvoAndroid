@@ -71,7 +71,7 @@ public class DialogP extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_p);
         //可从空白处关闭
-        setCanceledOnTouchOutside(true);
+        setCanceledOnTouchOutside(false);
         initView();
         refreshView();
         initEvent();
@@ -192,6 +192,13 @@ public class DialogP extends Dialog {
 
     public DialogP setHint(String hint){
         this.hintP=hint;
+        return this;
+    }
+
+    //设置是否从空白处关闭
+    public DialogP setCanCancel(boolean canCancel){
+        this.setCanceledOnTouchOutside(canCancel);
+        this.setCancelable(canCancel);
         return this;
     }
 

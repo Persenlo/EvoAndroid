@@ -74,6 +74,7 @@ public class StartActivity extends BaseActivity {
                     .setPosBtnText("同意")
                     .setNegBtnText("拒绝")
                     .setTitle("用户须知")
+                    .setCanCancel(false)
                     .setOnButtonClickListener(new DialogP.onButtonClickListener() {
                         @Override
                         public void onPositiveButtonClick() {
