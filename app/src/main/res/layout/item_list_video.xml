@@ -61,8 +61,7 @@
                         android:id="@+id/iv_video_onTop"
                         android:layout_width="12dp"
                         android:layout_height="12dp"
-                        android:src="@drawable/video_on_top"
-                        android:visibility="gone"
+                        android:src="@{VMVideoItem.onTopPic}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

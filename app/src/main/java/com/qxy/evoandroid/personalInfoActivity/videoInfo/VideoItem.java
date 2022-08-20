@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import com.qxy.evoandroid.R;
+
 public class VideoItem extends BaseObservable {
 
     private String title;
@@ -17,7 +19,7 @@ public class VideoItem extends BaseObservable {
     private String time;
     private String cover;
     private String itemId;
-
+    private Integer onTopPic;
     @Bindable
     public String getCover() {
         return cover;
@@ -42,7 +44,8 @@ public class VideoItem extends BaseObservable {
     }
 
     public void setOn_top(Boolean on_top) {
-        this.on_top = on_top;
+        if(on_top) setOnTopPic(R.drawable.video_on_top);
+        else setOnTopPic(null);
     }
 
     @Bindable
@@ -82,4 +85,13 @@ public class VideoItem extends BaseObservable {
     }
 
     public VideoItem(){}
+
+    @Bindable
+    public Integer getOnTopPic() {
+        return onTopPic;
+    }
+
+    public void setOnTopPic(Integer onTopPic) {
+        this.onTopPic = onTopPic;
+    }
 }
