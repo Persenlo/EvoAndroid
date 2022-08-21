@@ -95,7 +95,7 @@ public class VideoFragment extends Fragment {
                 }
 
 //                v.setTime(mem.getCreateTime());
-//                v.setOn_top(mem.isIsTop());
+                v.setOn_top(mem.isIsTop());
                 if(mem.isIsTop()) video_list.add(0,v);
                 else video_list.add(v);
             }

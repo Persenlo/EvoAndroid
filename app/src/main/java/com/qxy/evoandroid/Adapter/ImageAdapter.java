@@ -20,4 +20,10 @@ public class ImageAdapter {
     }
 
 
+    @BindingAdapter("android:src")
+    public static void setSrc(ImageView view, int resId) {
+        view.setImageResource(resId);
+    }
+
+
 }

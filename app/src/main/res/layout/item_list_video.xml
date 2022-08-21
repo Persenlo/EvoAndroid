@@ -59,8 +59,8 @@
 
                     <ImageView
                         android:id="@+id/iv_video_onTop"
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:src="@{VMVideoItem.onTopPic}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

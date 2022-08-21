@@ -13,13 +13,13 @@ import com.qxy.evoandroid.R;
 public class VideoItem extends BaseObservable {
 
     private String title;
-    private Boolean on_top=false;//暂缓
+    private Boolean on_top;//暂缓
     private String play_count;
     private String comment_count;
     private String time;
     private String cover;
     private String itemId;
-    private Integer onTopPic;
+    private Integer onTopPic = R.drawable.video_on_top;
     @Bindable
     public String getCover() {
         return cover;
@@ -45,7 +45,7 @@ public class VideoItem extends BaseObservable {
 
     public void setOn_top(Boolean on_top) {
         if(on_top) setOnTopPic(R.drawable.video_on_top);
-        else setOnTopPic(null);
+        else setOnTopPic(R.color.white);
     }
 
     @Bindable
